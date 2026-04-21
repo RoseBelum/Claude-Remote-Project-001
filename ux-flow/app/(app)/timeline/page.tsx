@@ -67,10 +67,10 @@ export default function TimelinePage() {
   ]
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 space-y-5">
+    <div className="max-w-7xl mx-auto px-4 py-4 md:py-6 space-y-4 md:space-y-5">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-gray-900">Timeline &amp; Dashboard</h1>
+      <div className="flex items-center justify-between gap-3">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900">Timeline</h1>
 
         {/* Gantt | Dashboard toggle */}
         <div className="flex rounded-lg border border-gray-200 overflow-hidden text-sm">
@@ -78,7 +78,7 @@ export default function TimelinePage() {
             <button
               key={t}
               onClick={() => setTabView(t)}
-              className={`px-4 py-2 transition-colors capitalize ${
+              className={`px-3 md:px-4 py-2 transition-colors ${
                 tabView === t ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-50'
               }`}
             >
@@ -89,14 +89,14 @@ export default function TimelinePage() {
       </div>
 
       {/* Filters row */}
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-2">
         {/* Period */}
         <div className="flex rounded-lg border border-gray-200 overflow-hidden text-sm">
           {PERIODS.map((p) => (
             <button
               key={p.value}
               onClick={() => setPeriod(p.value)}
-              className={`px-3 py-1.5 transition-colors ${
+              className={`px-2.5 py-1.5 transition-colors ${
                 period === p.value ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-50'
               }`}
             >
@@ -107,30 +107,30 @@ export default function TimelinePage() {
 
         {/* Custom date pickers */}
         {period === 'custom' && (
-          <div className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-1.5 text-sm w-full sm:w-auto">
             <input
               type="date"
               value={customFrom}
               onChange={(e) => setCustomFrom(e.target.value)}
-              className="border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="flex-1 sm:flex-none border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 min-w-0"
             />
-            <span className="text-gray-400">→</span>
+            <span className="text-gray-400 flex-shrink-0">→</span>
             <input
               type="date"
               value={customTo}
               onChange={(e) => setCustomTo(e.target.value)}
-              className="border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="flex-1 sm:flex-none border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 min-w-0"
             />
           </div>
         )}
 
         {/* Scope selector */}
-        <div className="flex items-center gap-2 ml-auto text-sm">
-          <label className="text-gray-500 font-medium">Ver:</label>
+        <div className="flex items-center gap-1.5 text-sm ml-auto">
+          <label className="text-gray-500 font-medium text-xs whitespace-nowrap">Ver:</label>
           <select
             value={scope}
             onChange={(e) => setScope(e.target.value as Scope)}
-            className="border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 max-w-[130px]"
           >
             <option value="me">Eu</option>
             <option value="team">Equipa</option>

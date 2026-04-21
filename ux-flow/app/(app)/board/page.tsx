@@ -142,10 +142,24 @@ function DroppableColumn({
   )
 }
 
+/* ─── Mobile hook ───────────────────────────────────────────────────────── */
+
+function useMobile() {
+  const [mobile, setMobile] = useState(false)
+  useEffect(() => {
+    function check() { setMobile(window.innerWidth < 768) }
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+  return mobile
+}
+
 /* ─── Main page ─────────────────────────────────────────────────────────── */
 
 export default function BoardPage() {
   const supabase = createClient()
+  const isMobile = useMobile()
 
   const [estados, setEstados] = useState<KanbanEstado[]>([])
   const [projectos, setProjectos] = useState<Projecto[]>([])
@@ -153,6 +167,7 @@ export default function BoardPage() {
 
   const [filterProjecto, setFilterProjecto] = useState('')
   const [filterAssignee, setFilterAssignee] = useState('')
+  const [mobileColIdx, setMobileColIdx] = useState(0)
 
   const [boardData, setBoardData] = useState<BoardData>(new Map())
   const boardDataRef = useRef<BoardData>(new Map())
@@ -407,40 +422,71 @@ export default function BoardPage() {
 
   const showProject = !filterProjecto
 
+  const activeEstado = estados[mobileColIdx] ?? estados[0]
+
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-4 flex-wrap border-b border-gray-200 bg-white">
-        <h1 className="text-xl font-bold text-gray-900 mr-2">Task Board</h1>
+      <div className="flex items-center gap-2 px-4 py-3 flex-wrap border-b border-gray-200 bg-white">
+        <h1 className="text-xl font-bold text-gray-900 mr-1">Task Board</h1>
 
         <select
           value={filterProjecto}
           onChange={(e) => setFilterProjecto(e.target.value)}
-          className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 max-w-[140px] md:max-w-none"
         >
-          <option value="">Todos os projectos</option>
+          <option value="">Todos projectos</option>
           {projectos.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
         </select>
 
         <select
           value={filterAssignee}
           onChange={(e) => setFilterAssignee(e.target.value)}
-          className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="hidden md:block px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
-          <option value="">Todos os membros</option>
+          <option value="">Todos membros</option>
           {profiles.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
         </select>
 
         <button
-          onClick={() => setNewTaskDefaults({ estadoId: estados[0]?.id ?? '', projectoId: filterProjecto })}
-          className="ml-auto px-3 py-1.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+          onClick={() => setNewTaskDefaults({ estadoId: activeEstado?.id ?? '', projectoId: filterProjecto })}
+          className="ml-auto px-3 py-1.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors whitespace-nowrap"
         >
-          + Nova tarefa
+          + Nova
         </button>
       </div>
 
-      {/* Board: horizontal scroll */}
-      <div className="flex-1 overflow-x-auto">
+      {/* Mobile column tabs */}
+      {isMobile && estados.length > 0 && (
+        <div className="flex overflow-x-auto border-b border-gray-200 bg-white px-2 gap-0 scrollbar-none">
+          {estados.map((e, i) => {
+            const count = (boardData.get(e.id) ?? []).length
+            return (
+              <button
+                key={e.id}
+                onClick={() => setMobileColIdx(i)}
+                className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
+                  mobileColIdx === i
+                    ? 'border-indigo-600 text-indigo-600'
+                    : 'border-transparent text-gray-500'
+                }`}
+              >
+                <span
+                  className="w-2 h-2 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: e.cor }}
+                />
+                {e.nome}
+                <span className="text-xs bg-gray-100 text-gray-500 rounded-full px-1.5 py-0.5 leading-none">
+                  {count}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      )}
+
+      {/* Board */}
+      <div className="flex-1 overflow-x-auto md:overflow-x-auto">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -448,19 +494,36 @@ export default function BoardPage() {
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
         >
-          <div className="flex gap-4 p-4 min-w-max">
-            {estados.map((estado) => (
-              <DroppableColumn
-                key={estado.id}
-                estado={estado}
-                tasks={boardData.get(estado.id) ?? []}
-                showProject={showProject}
-                filterAssignee={filterAssignee}
-                onCardClick={setModalTask}
-                onQuickAdd={() => {}}
-              />
-            ))}
-          </div>
+          {isMobile ? (
+            /* ── Mobile: single column ──────────────────────────── */
+            activeEstado && (
+              <div className="p-3">
+                <DroppableColumn
+                  estado={activeEstado}
+                  tasks={boardData.get(activeEstado.id) ?? []}
+                  showProject={showProject}
+                  filterAssignee={filterAssignee}
+                  onCardClick={setModalTask}
+                  onQuickAdd={() => {}}
+                />
+              </div>
+            )
+          ) : (
+            /* ── Desktop: all columns side-by-side ──────────────── */
+            <div className="flex gap-4 p-4 min-w-max">
+              {estados.map((estado) => (
+                <DroppableColumn
+                  key={estado.id}
+                  estado={estado}
+                  tasks={boardData.get(estado.id) ?? []}
+                  showProject={showProject}
+                  filterAssignee={filterAssignee}
+                  onCardClick={setModalTask}
+                  onQuickAdd={() => {}}
+                />
+              ))}
+            </div>
+          )}
 
           <DragOverlay>
             {activeTask && (

@@ -233,10 +233,10 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
                 </span>
 
                 {/* Actions */}
-                <div className="flex-shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex-shrink-0 flex items-center gap-1 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => setEditingSessao(s)}
-                    className="w-7 h-7 flex items-center justify-center rounded hover:bg-gray-200 text-gray-500 text-xs transition-colors"
+                    className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-200 text-gray-500 text-sm transition-colors"
                     title="Editar"
                   >
                     ✏
@@ -244,7 +244,7 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
                   <button
                     onClick={() => void handleDelete(s.id)}
                     disabled={deletingId === s.id}
-                    className="w-7 h-7 flex items-center justify-center rounded hover:bg-red-100 text-red-400 text-xs transition-colors disabled:opacity-50"
+                    className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-red-100 text-red-400 text-sm transition-colors disabled:opacity-50"
                     title="Apagar"
                   >
                     🗑

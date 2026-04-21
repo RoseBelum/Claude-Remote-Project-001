@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
@@ -39,8 +39,20 @@ function MetricCard({ label, value, sub, color }: { label: string; value: string
   )
 }
 
+function useMobile() {
+  const [mobile, setMobile] = useState(false)
+  useEffect(() => {
+    function check() { setMobile(window.innerWidth < 768) }
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+  return mobile
+}
+
 export function DashboardView({ userId, scope, period, range }: Props) {
   const supabase = createClient()
+  const isMobile = useMobile()
   const [sessions, setSessions] = useState<SessionAgg[]>([])
   const [targetHoras, setTargetHoras] = useState<number>(160)
   const [loading, setLoading] = useState(true)
@@ -200,29 +212,47 @@ export function DashboardView({ userId, scope, period, range }: Props) {
 
       {/* Horas por dia */}
       {dayRows.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-5">
           <h3 className="text-sm font-semibold text-gray-700 mb-4">Horas por Dia</h3>
-          <ResponsiveContainer width="100%" height={200}>
-            <ComposedChart data={dayRows} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
-              <XAxis dataKey="label" tick={{ fontSize: 11 }} interval="preserveStartEnd" />
-              <YAxis tick={{ fontSize: 11 }} />
+          <ResponsiveContainer width="100%" height={180}>
+            <ComposedChart data={dayRows} margin={{ top: 4, right: isMobile ? 4 : 60, left: -20, bottom: 0 }}>
+              <XAxis dataKey="label" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
+              <YAxis tick={{ fontSize: 10 }} width={32} />
               <Tooltip formatter={(v) => [`${v}h`, 'Horas']} />
               <Bar dataKey="horas" fill="#6366f1" radius={[3,3,0,0]} maxBarSize={32} />
-              <ReferenceLine y={dailyTarget} stroke="#ef4444" strokeDasharray="4 3" label={{ value: `${dailyTarget}h/dia`, fill: '#ef4444', fontSize: 10, position: 'right' }} />
+              <ReferenceLine
+                y={dailyTarget}
+                stroke="#ef4444"
+                strokeDasharray="4 3"
+                label={isMobile ? undefined : { value: `${dailyTarget}h/dia`, fill: '#ef4444', fontSize: 10, position: 'right' }}
+              />
             </ComposedChart>
           </ResponsiveContainer>
+          {isMobile && (
+            <p className="text-xs text-red-500 mt-1">— Objectivo diário: {dailyTarget}h</p>
+          )}
         </div>
       )}
 
       {/* Horas por projecto + BU donut */}
       <div className="grid md:grid-cols-2 gap-4">
         {projectRows.length > 0 && (
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
+          <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-5">
             <h3 className="text-sm font-semibold text-gray-700 mb-4">Horas por Projecto</h3>
             <ResponsiveContainer width="100%" height={Math.max(180, projectRows.length * 30)}>
-              <BarChart layout="vertical" data={projectRows} margin={{ top: 0, right: 40, left: 8, bottom: 0 }}>
-                <XAxis type="number" tick={{ fontSize: 11 }} />
-                <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={120} />
+              <BarChart
+                layout="vertical"
+                data={projectRows}
+                margin={{ top: 0, right: 36, left: 4, bottom: 0 }}
+              >
+                <XAxis type="number" tick={{ fontSize: 10 }} />
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  tick={{ fontSize: 10 }}
+                  width={isMobile ? 80 : 120}
+                  tickFormatter={(v: string) => isMobile && v.length > 10 ? v.slice(0, 9) + '…' : v}
+                />
                 <Tooltip formatter={(v) => [fmtH(Number(v)), 'Horas']} />
                 <Bar dataKey="horas" radius={[0,3,3,0]} maxBarSize={18}>
                   {projectRows.map((row, i) => (
@@ -235,7 +265,7 @@ export function DashboardView({ userId, scope, period, range }: Props) {
         )}
 
         {buRows.length > 0 && (
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
+          <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-5">
             <h3 className="text-sm font-semibold text-gray-700 mb-4">Distribuição por BU</h3>
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
@@ -245,18 +275,18 @@ export function DashboardView({ userId, scope, period, range }: Props) {
                   nameKey="name"
                   cx="50%"
                   cy="50%"
-                  innerRadius="45%"
-                  outerRadius="70%"
+                  innerRadius="40%"
+                  outerRadius="65%"
                   paddingAngle={2}
-                  label={({ name, percent }) => `${name} ${Math.round((percent ?? 0) * 100)}%`}
-                  labelLine={false}
+                  label={isMobile ? undefined : ({ name, percent }) => `${name} ${Math.round((percent ?? 0) * 100)}%`}
+                  labelLine={!isMobile}
                 >
                   {buRows.map((row, i) => (
                     <Cell key={i} fill={row.fill} />
                   ))}
                 </Pie>
                 <Tooltip formatter={(v) => [fmtH(Number(v)), 'Horas']} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 12 }} />
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -265,12 +295,22 @@ export function DashboardView({ userId, scope, period, range }: Props) {
 
       {/* Team comparison */}
       {scope === 'team' && memberRows.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-5">
           <h3 className="text-sm font-semibold text-gray-700 mb-4">Horas por Pessoa</h3>
           <ResponsiveContainer width="100%" height={Math.max(160, memberRows.length * 36)}>
-            <BarChart layout="vertical" data={memberRows} margin={{ top: 0, right: 40, left: 8, bottom: 0 }}>
-              <XAxis type="number" tick={{ fontSize: 11 }} />
-              <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={120} />
+            <BarChart
+              layout="vertical"
+              data={memberRows}
+              margin={{ top: 0, right: 36, left: 4, bottom: 0 }}
+            >
+              <XAxis type="number" tick={{ fontSize: 10 }} />
+              <YAxis
+                type="category"
+                dataKey="name"
+                tick={{ fontSize: 10 }}
+                width={isMobile ? 80 : 120}
+                tickFormatter={(v: string) => isMobile && v.length > 10 ? v.slice(0, 9) + '…' : v}
+              />
               <Tooltip formatter={(v) => [fmtH(Number(v)), 'Horas']} />
               <Bar dataKey="horas" fill="#6366f1" radius={[0,3,3,0]} maxBarSize={20} />
             </BarChart>
