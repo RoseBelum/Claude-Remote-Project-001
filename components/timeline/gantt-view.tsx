@@ -73,7 +73,7 @@ export function GanttView({ userId, scope, from, to }: Props) {
       setLoading(true)
       let q = supabase
         .from('tarefas')
-        .select('*, projecto:projectos(nome, bu:buses(id, nome, cor)), assignee:profiles(nome, avatar_url)')
+        .select('*, projecto:projectos(nome, bu:bus(id, nome, cor)), assignee:profiles(nome, avatar_url)')
         .order('data_inicio', { ascending: true })
 
       if (scope === 'me') q = q.eq('assignee_id', userId)
