@@ -62,13 +62,13 @@ interface Props {
 
 function SkeletonRow() {
   return (
-    <div className="animate-pulse py-3 px-4 border-b border-gray-100 flex items-center gap-3">
-      <div className="w-16 h-5 bg-gray-200 rounded-full" />
-      <div className="flex-1 space-y-1.5">
-        <div className="w-40 h-4 bg-gray-200 rounded" />
-        <div className="w-28 h-3 bg-gray-100 rounded" />
+    <div className="animate-pulse glass rounded-2xl p-4 flex items-center gap-3">
+      <div className="w-10 h-10 bg-white/60 rounded-xl flex-shrink-0" />
+      <div className="flex-1 space-y-2">
+        <div className="w-40 h-4 bg-white/80 rounded-full" />
+        <div className="w-28 h-3 bg-white/60 rounded-full" />
       </div>
-      <div className="w-10 h-4 bg-gray-200 rounded" />
+      <div className="w-10 h-4 bg-white/60 rounded-full" />
     </div>
   )
 }
@@ -154,21 +154,21 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
   const pct = dailyTarget > 0 ? Math.min(100, Math.round((totalHoras / dailyTarget) * 100)) : 0
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl flex flex-col">
+    <div className="glass rounded-[2rem] flex flex-col overflow-hidden">
       {/* Date navigation */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-white/60">
         <button
           onClick={() => goDay(-1)}
-          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-600 transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white/60 text-[#46464f] font-bold text-lg transition-colors"
         >
           ‹
         </button>
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-gray-900">{formatDateLabel(selectedDate)}</span>
+          <span className="text-sm font-bold text-[#181c23]">{formatDateLabel(selectedDate)}</span>
           {!isToday && (
             <button
               onClick={() => setSelectedDate(new Date())}
-              className="text-xs px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-full hover:bg-indigo-100 transition-colors"
+              className="text-xs px-2.5 py-1 bg-[#e1e0ff] text-[#585990] rounded-full font-bold hover:bg-[#c1c1ff] transition-colors"
             >
               Hoje
             </button>
@@ -176,14 +176,14 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
         </div>
         <button
           onClick={() => goDay(1)}
-          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-600 transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white/60 text-[#46464f] font-bold text-lg transition-colors"
         >
           ›
         </button>
       </div>
 
       {/* Session rows */}
-      <div className="flex-1 divide-y divide-gray-100">
+      <div className="flex-1 p-4 space-y-3">
         {loading ? (
           <>
             <SkeletonRow />
@@ -192,29 +192,31 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
           </>
         ) : sessions.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-sm text-gray-400">Sem sessões neste dia.</p>
-            <p className="text-xs text-gray-300 mt-1">Usa o cronómetro para registar tempo.</p>
+            <p className="text-sm font-semibold text-[#777680]">Sem sessões neste dia.</p>
+            <p className="text-xs text-[#c8c5d0] mt-1 font-medium">Usa o cronómetro para registar tempo.</p>
           </div>
         ) : (
           sessions.map((s) => {
             const buCor = s.projecto.bu.cor
             return (
-              <div key={s.id} className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 group">
-                {/* BU badge */}
-                <span
-                  className="flex-shrink-0 mt-0.5 text-xs font-semibold px-2 py-0.5 rounded-full"
-                  style={{ backgroundColor: buCor + '22', color: buCor }}
+              <div key={s.id} className="group flex items-center gap-3 bg-white/50 hover:bg-white/80 rounded-2xl px-4 py-3 transition-all cursor-default">
+                {/* BU icon */}
+                <div
+                  className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
+                  style={{ backgroundColor: buCor + '22' }}
                 >
-                  {s.projecto.bu.nome}
-                </span>
+                  <span className="text-xs font-extrabold" style={{ color: buCor }}>
+                    {s.projecto.bu.nome.slice(0, 2)}
+                  </span>
+                </div>
 
                 {/* Main info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-medium text-gray-900 truncate">{s.projecto.nome}</span>
+                    <span className="text-sm font-bold text-[#181c23] truncate">{s.projecto.nome}</span>
                     {s.tag && (
                       <span
-                        className="text-xs px-1.5 py-0.5 rounded"
+                        className="text-xs px-2 py-0.5 rounded-full font-semibold"
                         style={{ backgroundColor: s.tag.cor + '22', color: s.tag.cor }}
                       >
                         {s.tag.nome}
@@ -222,13 +224,13 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
                     )}
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-xs text-gray-400">{formatTimeRange(s.inicio, s.fim)}</span>
-                    {s.nota && <span className="text-xs text-gray-500 truncate">{s.nota}</span>}
+                    <span className="text-xs font-medium text-[#777680]">{formatTimeRange(s.inicio, s.fim)}</span>
+                    {s.nota && <span className="text-xs text-[#46464f] truncate">{s.nota}</span>}
                   </div>
                 </div>
 
                 {/* Hours */}
-                <span className="flex-shrink-0 text-sm font-medium text-gray-700 tabular-nums">
+                <span className="flex-shrink-0 text-sm font-extrabold text-[#181c23] tabular-nums">
                   {formatHoras(s.horas)}
                 </span>
 
@@ -236,7 +238,7 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
                 <div className="flex-shrink-0 flex items-center gap-1 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => setEditingSessao(s)}
-                    className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-200 text-gray-500 text-sm transition-colors"
+                    className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-[#e1e0ff] text-[#585990] text-sm transition-colors"
                     title="Editar"
                   >
                     ✏
@@ -244,7 +246,7 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
                   <button
                     onClick={() => void handleDelete(s.id)}
                     disabled={deletingId === s.id}
-                    className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-red-100 text-red-400 text-sm transition-colors disabled:opacity-50"
+                    className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-[#ffdad6] text-[#ba1a1a] text-sm transition-colors disabled:opacity-50"
                     title="Apagar"
                   >
                     🗑
@@ -258,20 +260,20 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
 
       {/* Daily total */}
       {!loading && (
-        <div className="px-4 py-3 border-t border-gray-200 bg-gray-50 rounded-b-xl">
-          <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-medium text-gray-500">Total do dia</span>
-            <span className="text-sm font-semibold text-gray-900">
+        <div className="px-6 py-4 border-t border-white/60" style={{ background: 'rgba(215,229,187,0.3)' }}>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-bold text-[#3f4b2c] uppercase tracking-wider">Total do dia</span>
+            <span className="text-sm font-extrabold text-[#181c23]">
               {formatHoras(totalHoras)}
-              <span className="text-xs text-gray-400 font-normal ml-1">
-                de {formatHoras(Math.round(dailyTarget * 10) / 10)} objectivo · {pct}%
+              <span className="text-xs text-[#777680] font-medium ml-1">
+                / {formatHoras(Math.round(dailyTarget * 10) / 10)} · {pct}%
               </span>
             </span>
           </div>
-          <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-white/60 rounded-full overflow-hidden">
             <div
-              className="h-full bg-indigo-500 rounded-full transition-all duration-500"
-              style={{ width: `${pct}%` }}
+              className="h-full rounded-full transition-all duration-500"
+              style={{ width: `${pct}%`, background: 'linear-gradient(90deg, #585990, #8b8cc7)' }}
             />
           </div>
         </div>

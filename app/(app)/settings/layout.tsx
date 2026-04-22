@@ -17,20 +17,23 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Definições</h1>
+      <div className="mb-7">
+        <h1 className="text-2xl font-extrabold text-[#181c23] tracking-tight">Definições</h1>
+        <p className="text-sm text-[#777680] font-medium mt-0.5">Configura o teu espaço de trabalho</p>
+      </div>
 
-      <div className="flex gap-8">
+      <div className="flex gap-6">
         {/* Sidebar */}
-        <aside className="hidden md:block w-48 flex-shrink-0">
-          <nav className="space-y-0.5">
+        <aside className="hidden md:block w-52 flex-shrink-0">
+          <nav className="glass rounded-[1.5rem] p-3 space-y-1">
             {sections.map((s) => (
               <Link
                 key={s.href}
                 href={s.href}
-                className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`block px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                   pathname === s.href || pathname.startsWith(s.href + '/')
-                    ? 'bg-indigo-50 text-indigo-700'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'bg-[#585990] text-white shadow-sm'
+                    : 'text-[#46464f] hover:text-[#585990] hover:bg-white/60'
                 }`}
               >
                 {s.label}
@@ -45,10 +48,10 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
             <Link
               key={s.href}
               href={s.href}
-              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all border ${
                 pathname === s.href
-                  ? 'bg-indigo-600 text-white border-indigo-600'
-                  : 'text-gray-600 border-gray-300 hover:border-gray-400'
+                  ? 'bg-[#585990] text-white border-[#585990]'
+                  : 'text-[#46464f] border-[#c8c5d0] hover:border-[#585990]'
               }`}
             >
               {s.label}

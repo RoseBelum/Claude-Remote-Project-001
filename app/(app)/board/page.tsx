@@ -82,8 +82,8 @@ function DroppableColumn({
       {/* Column header */}
       <div className="flex items-center gap-2 mb-3 px-1">
         <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: estado.cor }} />
-        <span className="text-sm font-semibold text-gray-700 flex-1">{estado.nome}</span>
-        <span className="text-xs font-medium text-gray-400 bg-gray-100 rounded-full px-2 py-0.5">
+        <span className="text-sm font-bold text-[#181c23] flex-1">{estado.nome}</span>
+        <span className="text-xs font-bold text-[#777680] bg-white/60 rounded-full px-2 py-0.5">
           {visible.length}
         </span>
       </div>
@@ -91,14 +91,14 @@ function DroppableColumn({
       {/* Drop area */}
       <div
         ref={setNodeRef}
-        className={`flex-1 min-h-[200px] rounded-xl p-2 space-y-2 transition-colors ${
-          isOver ? 'bg-indigo-50/60' : 'bg-gray-50'
+        className={`flex-1 min-h-[200px] rounded-2xl p-2 space-y-2 transition-colors ${
+          isOver ? 'bg-[#e1e0ff]/40' : 'bg-white/30'
         }`}
       >
         <SortableContext items={tasks.map((t) => t.id)} strategy={verticalListSortingStrategy}>
           {visible.length === 0 ? (
-            <div className="h-full flex items-center justify-center border-2 border-dashed border-gray-200 rounded-lg min-h-[160px]">
-              <span className="text-xs text-gray-400">Sem tarefas</span>
+            <div className="h-full flex items-center justify-center border-2 border-dashed border-white/60 rounded-xl min-h-[160px]">
+              <span className="text-xs text-[#c8c5d0] font-semibold">Sem tarefas</span>
             </div>
           ) : (
             visible.map((t) => (
@@ -122,17 +122,17 @@ function DroppableColumn({
               onChange={(e) => setQuickTitle(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Escape') { setQuickOpen(false); setQuickTitle('') } }}
               placeholder="Título da tarefa…"
-              className="w-full px-3 py-2 bg-white border border-indigo-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+              className="w-full px-3 py-2.5 bg-white/80 border border-[#585990]/40 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#585990]/20 shadow-sm"
             />
             <div className="flex gap-1.5 mt-1.5">
-              <button type="submit" className="px-3 py-1 bg-indigo-600 text-white text-xs rounded hover:bg-indigo-700">Adicionar</button>
-              <button type="button" onClick={() => { setQuickOpen(false); setQuickTitle('') }} className="px-3 py-1 text-xs text-gray-500 hover:text-gray-700">Cancelar</button>
+              <button type="submit" className="px-3 py-1.5 bg-[#585990] text-white text-xs font-bold rounded-xl hover:bg-[#46476e] transition-colors">Adicionar</button>
+              <button type="button" onClick={() => { setQuickOpen(false); setQuickTitle('') }} className="px-3 py-1.5 text-xs text-[#777680] font-semibold hover:text-[#181c23] transition-colors">Cancelar</button>
             </div>
           </form>
         ) : (
           <button
             onClick={openQuick}
-            className="w-full py-1.5 text-xs text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors flex items-center justify-center gap-1"
+            className="w-full py-2 text-xs text-[#777680] font-semibold hover:text-[#585990] hover:bg-white/50 rounded-xl transition-colors flex items-center justify-center gap-1"
           >
             + Adicionar tarefa
           </button>
@@ -399,10 +399,10 @@ export default function BoardPage() {
   if (!ready) {
     return (
       <div className="px-4 py-8 max-w-full">
-        <div className="h-8 w-64 bg-gray-200 rounded animate-pulse mb-6" />
+        <div className="h-9 w-64 bg-white/80 rounded-2xl animate-pulse mb-6" />
         <div className="flex gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="w-72 h-96 bg-gray-200 rounded-xl animate-pulse flex-shrink-0" />
+            <div key={i} className="w-72 h-96 bg-white/60 rounded-[2rem] animate-pulse flex-shrink-0" />
           ))}
         </div>
       </div>
@@ -411,9 +411,9 @@ export default function BoardPage() {
 
   if (projectos.length === 0) {
     return (
-      <div className="px-4 py-8 max-w-5xl mx-auto text-center">
-        <p className="text-gray-500 mb-3">Nenhum projecto activo encontrado.</p>
-        <a href="/settings/projects" className="text-indigo-600 hover:underline text-sm">
+      <div className="px-4 py-16 max-w-5xl mx-auto text-center">
+        <p className="text-[#777680] font-semibold mb-3">Nenhum projecto activo encontrado.</p>
+        <a href="/settings/projects" className="text-[#585990] hover:underline text-sm font-bold">
           Criar um projecto em Definições →
         </a>
       </div>
@@ -427,13 +427,13 @@ export default function BoardPage() {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center gap-2 px-4 py-3 flex-wrap border-b border-gray-200 bg-white">
-        <h1 className="text-xl font-bold text-gray-900 mr-1">Task Board</h1>
+      <div className="flex items-center gap-2.5 px-5 py-3.5 flex-wrap glass-subtle border-b border-white/60">
+        <h1 className="text-xl font-extrabold text-[#181c23] tracking-tight mr-1">Task Board</h1>
 
         <select
           value={filterProjecto}
           onChange={(e) => setFilterProjecto(e.target.value)}
-          className="px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 max-w-[140px] md:max-w-none"
+          className="px-3 py-2 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 max-w-[160px] md:max-w-none transition-all"
         >
           <option value="">Todos projectos</option>
           {projectos.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
@@ -442,7 +442,7 @@ export default function BoardPage() {
         <select
           value={filterAssignee}
           onChange={(e) => setFilterAssignee(e.target.value)}
-          className="hidden md:block px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="hidden md:block px-3 py-2 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 transition-all"
         >
           <option value="">Todos membros</option>
           {profiles.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
@@ -450,7 +450,8 @@ export default function BoardPage() {
 
         <button
           onClick={() => setNewTaskDefaults({ estadoId: activeEstado?.id ?? '', projectoId: filterProjecto })}
-          className="ml-auto px-3 py-1.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors whitespace-nowrap"
+          className="ml-auto px-4 py-2 text-white text-sm font-bold rounded-xl whitespace-nowrap shadow-md transition-all"
+          style={{ background: 'linear-gradient(135deg, #585990 0%, #8b8cc7 100%)', boxShadow: '0 4px 14px rgba(88,89,144,0.25)' }}
         >
           + Nova
         </button>
@@ -458,17 +459,17 @@ export default function BoardPage() {
 
       {/* Mobile column tabs */}
       {isMobile && estados.length > 0 && (
-        <div className="flex overflow-x-auto border-b border-gray-200 bg-white px-2 gap-0 scrollbar-none">
+        <div className="flex overflow-x-auto glass-subtle border-b border-white/60 px-2 gap-0 scrollbar-none">
           {estados.map((e, i) => {
             const count = (boardData.get(e.id) ?? []).length
             return (
               <button
                 key={e.id}
                 onClick={() => setMobileColIdx(i)}
-                className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
+                className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2.5 text-sm font-semibold border-b-2 transition-colors whitespace-nowrap ${
                   mobileColIdx === i
-                    ? 'border-indigo-600 text-indigo-600'
-                    : 'border-transparent text-gray-500'
+                    ? 'border-[#585990] text-[#585990]'
+                    : 'border-transparent text-[#777680]'
                 }`}
               >
                 <span
@@ -476,7 +477,7 @@ export default function BoardPage() {
                   style={{ backgroundColor: e.cor }}
                 />
                 {e.nome}
-                <span className="text-xs bg-gray-100 text-gray-500 rounded-full px-1.5 py-0.5 leading-none">
+                <span className="text-xs bg-white/60 text-[#46464f] rounded-full px-1.5 py-0.5 leading-none font-bold">
                   {count}
                 </span>
               </button>
@@ -574,8 +575,10 @@ export default function BoardPage() {
         {toasts.map((t) => (
           <div
             key={t.id}
-            className={`px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium text-white ${
-              t.type === 'success' ? 'bg-green-600' : 'bg-red-600'
+            className={`px-4 py-3 rounded-2xl shadow-xl text-sm font-bold transition-all ${
+              t.type === 'success'
+                ? 'bg-[#d7e5bb] text-[#3f4b2c] border border-[#b5cd92]'
+                : 'bg-[#ffdad6] text-[#93000a] border border-[#ffb3af]'
             }`}
           >
             {t.msg}
