@@ -21,26 +21,41 @@
 .gantt .bar-wrapper.bu-atobe .bar { fill: #ec4899; opacity: 0.8; }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary: #585990;
+  --color-primary-light: #8b8cc7;
+  --color-primary-container: #e1e0ff;
+  --color-secondary: #566342;
+  --color-secondary-container: #d7e5bb;
+  --color-surface: #f9f9ff;
+  --color-on-surface: #181c23;
+  --color-on-surface-variant: #46464f;
+  --color-outline: #777680;
+  --color-outline-variant: #c8c5d0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.glass {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f9f9ff;
+  color: #181c23;
+  font-family: 'Manrope', sans-serif;
+}
+
+/* Consistent select & input base */
+select, input[type="text"], input[type="email"], input[type="password"], textarea {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: #c8c5d0;
+  border-radius: 0.75rem;
 }

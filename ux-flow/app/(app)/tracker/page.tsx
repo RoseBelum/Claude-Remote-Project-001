@@ -59,11 +59,11 @@ export default function TrackerPage() {
   if (!ready || !user) {
     return (
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="animate-pulse space-y-4">
-          <div className="h-8 w-48 bg-gray-200 rounded" />
-          <div className="grid md:grid-cols-5 gap-6">
-            <div className="md:col-span-2 h-96 bg-gray-200 rounded-xl" />
-            <div className="md:col-span-3 h-96 bg-gray-200 rounded-xl" />
+        <div className="animate-pulse space-y-6">
+          <div className="h-9 w-48 bg-white/80 rounded-2xl" />
+          <div className="flex flex-col md:grid md:grid-cols-5 gap-6">
+            <div className="md:col-span-2 h-[480px] bg-white/60 rounded-[2rem]" />
+            <div className="md:col-span-3 h-[480px] bg-white/60 rounded-[2rem]" />
           </div>
         </div>
       </div>
@@ -73,11 +73,14 @@ export default function TrackerPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Time Tracker</h1>
+      <div className="flex items-center justify-between mb-7">
+        <div>
+          <h1 className="text-2xl font-extrabold text-[#181c23] tracking-tight">Time Tracker</h1>
+          <p className="text-sm text-[#777680] font-medium mt-0.5">Regista e gere o teu tempo</p>
+        </div>
         <button
           onClick={() => setExportOpen(true)}
-          className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+          className="px-4 py-2 text-sm font-bold glass rounded-xl text-[#585990] hover:bg-white/80 border border-[#585990]/20 transition-all"
         >
           Exportar
         </button>
@@ -120,8 +123,10 @@ export default function TrackerPage() {
         {toasts.map((t) => (
           <div
             key={t.id}
-            className={`px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium text-white transition-all ${
-              t.type === 'success' ? 'bg-green-600' : 'bg-red-600'
+            className={`px-4 py-3 rounded-2xl shadow-xl text-sm font-bold transition-all ${
+              t.type === 'success'
+                ? 'bg-[#d7e5bb] text-[#3f4b2c] border border-[#b5cd92]'
+                : 'bg-[#ffdad6] text-[#93000a] border border-[#ffb3af]'
             }`}
           >
             {t.msg}

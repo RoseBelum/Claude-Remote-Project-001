@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Manrope } from 'next/font/google'
 import './globals.css'
 import { SupabaseProvider } from '@/components/supabase-provider'
 
-const inter = Inter({ subsets: ['latin'] })
+const manrope = Manrope({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-manrope',
+})
 
 export const metadata: Metadata = {
   title: 'UX Flow',
@@ -16,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt" className={inter.className}>
-      <body className="bg-gray-50 text-gray-900 antialiased">
+    <html lang="pt" className={manrope.variable}>
+      <body className={`${manrope.className} antialiased`} style={{ backgroundColor: '#f9f9ff' }}>
         <SupabaseProvider>{children}</SupabaseProvider>
       </body>
     </html>
