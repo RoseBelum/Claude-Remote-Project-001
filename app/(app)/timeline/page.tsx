@@ -71,8 +71,8 @@ export default function TimelinePage() {
       {/* Header */}
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl md:text-2xl font-extrabold text-[#181c23] tracking-tight">Timeline</h1>
-          <p className="text-sm text-[#777680] font-medium mt-0.5 hidden md:block">Visão geral de projectos e sessões</p>
+          <h1 className="text-xl md:text-2xl font-extrabold text-[#1A1A2E] tracking-tight">Timeline</h1>
+          <p className="text-sm text-[#6B6880] font-medium mt-0.5 hidden md:block">Visão geral de projectos e sessões</p>
         </div>
 
         {/* Gantt | Dashboard toggle */}
@@ -83,8 +83,8 @@ export default function TimelinePage() {
               onClick={() => setTabView(t)}
               className={`px-3 md:px-4 py-1.5 rounded-lg font-semibold transition-all ${
                 tabView === t
-                  ? 'bg-[#585990] text-white shadow-sm'
-                  : 'text-[#777680] hover:text-[#585990] hover:bg-white/60'
+                  ? 'bg-[#5B5BD6] text-white shadow-sm'
+                  : 'text-[#6B6880] hover:text-[#5B5BD6] hover:bg-white/60'
               }`}
             >
               {t === 'gantt' ? 'Gantt' : 'Dashboard'}
@@ -103,8 +103,8 @@ export default function TimelinePage() {
               onClick={() => setPeriod(p.value)}
               className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
                 period === p.value
-                  ? 'bg-[#585990] text-white shadow-sm'
-                  : 'text-[#777680] hover:text-[#585990] hover:bg-white/60'
+                  ? 'bg-[#5B5BD6] text-white shadow-sm'
+                  : 'text-[#6B6880] hover:text-[#5B5BD6] hover:bg-white/60'
               }`}
             >
               {p.label}
@@ -119,25 +119,25 @@ export default function TimelinePage() {
               type="date"
               value={customFrom}
               onChange={(e) => setCustomFrom(e.target.value)}
-              className="flex-1 sm:flex-none bg-white/70 border border-[#c8c5d0] rounded-xl px-3 py-1.5 text-[#181c23] text-xs font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 min-w-0 transition-all"
+              className="flex-1 sm:flex-none bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl px-3 py-1.5 text-[#1A1A2E] text-xs font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 min-w-0 transition-all"
             />
-            <span className="text-[#777680] flex-shrink-0 font-bold">→</span>
+            <span className="text-[#6B6880] flex-shrink-0 font-bold">→</span>
             <input
               type="date"
               value={customTo}
               onChange={(e) => setCustomTo(e.target.value)}
-              className="flex-1 sm:flex-none bg-white/70 border border-[#c8c5d0] rounded-xl px-3 py-1.5 text-[#181c23] text-xs font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 min-w-0 transition-all"
+              className="flex-1 sm:flex-none bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl px-3 py-1.5 text-[#1A1A2E] text-xs font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 min-w-0 transition-all"
             />
           </div>
         )}
 
         {/* Scope selector */}
         <div className="flex items-center gap-1.5 text-sm ml-auto">
-          <label className="text-[#777680] font-bold text-xs whitespace-nowrap">Ver:</label>
+          <label className="text-[#6B6880] font-bold text-xs whitespace-nowrap">Ver:</label>
           <select
             value={scope}
             onChange={(e) => setScope(e.target.value as Scope)}
-            className="bg-white/70 border border-[#c8c5d0] rounded-xl px-3 py-1.5 text-[#181c23] text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 max-w-[130px] transition-all"
+            className="bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl px-3 py-1.5 text-[#1A1A2E] text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 max-w-[130px] transition-all"
           >
             <option value="me">Eu</option>
             <option value="team">Equipa</option>
@@ -151,7 +151,7 @@ export default function TimelinePage() {
       </div>
 
       {/* Range label */}
-      <p className="text-xs text-[#777680] font-medium">
+      <p className="text-xs text-[#6B6880] font-medium">
         {range.from} → {range.to}
       </p>
 

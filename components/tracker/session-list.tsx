@@ -159,16 +159,16 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
       <div className="flex items-center justify-between px-6 py-4 border-b border-white/60">
         <button
           onClick={() => goDay(-1)}
-          className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white/60 text-[#46464f] font-bold text-lg transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white/60 text-[#44444F] font-bold text-lg transition-colors"
         >
           ‹
         </button>
         <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-[#181c23]">{formatDateLabel(selectedDate)}</span>
+          <span className="text-sm font-bold text-[#1A1A2E]">{formatDateLabel(selectedDate)}</span>
           {!isToday && (
             <button
               onClick={() => setSelectedDate(new Date())}
-              className="text-xs px-2.5 py-1 bg-[#e1e0ff] text-[#585990] rounded-full font-bold hover:bg-[#c1c1ff] transition-colors"
+              className="text-xs px-2.5 py-1 bg-[#EBEBFF] text-[#5B5BD6] rounded-full font-bold hover:bg-[#c1c1ff] transition-colors"
             >
               Hoje
             </button>
@@ -176,7 +176,7 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
         </div>
         <button
           onClick={() => goDay(1)}
-          className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white/60 text-[#46464f] font-bold text-lg transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white/60 text-[#44444F] font-bold text-lg transition-colors"
         >
           ›
         </button>
@@ -192,8 +192,8 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
           </>
         ) : sessions.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-sm font-semibold text-[#777680]">Sem sessões neste dia.</p>
-            <p className="text-xs text-[#c8c5d0] mt-1 font-medium">Usa o cronómetro para registar tempo.</p>
+            <p className="text-sm font-semibold text-[#6B6880]">Sem sessões neste dia.</p>
+            <p className="text-xs text-[#C4C0D0] mt-1 font-medium">Usa o cronómetro para registar tempo.</p>
           </div>
         ) : (
           sessions.map((s) => {
@@ -213,7 +213,7 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
                 {/* Main info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-bold text-[#181c23] truncate">{s.projecto.nome}</span>
+                    <span className="text-sm font-bold text-[#1A1A2E] truncate">{s.projecto.nome}</span>
                     {s.tag && (
                       <span
                         className="text-xs px-2 py-0.5 rounded-full font-semibold"
@@ -224,13 +224,13 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
                     )}
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-xs font-medium text-[#777680]">{formatTimeRange(s.inicio, s.fim)}</span>
-                    {s.nota && <span className="text-xs text-[#46464f] truncate">{s.nota}</span>}
+                    <span className="text-xs font-medium text-[#6B6880]">{formatTimeRange(s.inicio, s.fim)}</span>
+                    {s.nota && <span className="text-xs text-[#44444F] truncate">{s.nota}</span>}
                   </div>
                 </div>
 
                 {/* Hours */}
-                <span className="flex-shrink-0 text-sm font-extrabold text-[#181c23] tabular-nums">
+                <span className="flex-shrink-0 text-sm font-extrabold text-[#1A1A2E] tabular-nums">
                   {formatHoras(s.horas)}
                 </span>
 
@@ -238,7 +238,7 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
                 <div className="flex-shrink-0 flex items-center gap-1 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => setEditingSessao(s)}
-                    className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-[#e1e0ff] text-[#585990] text-sm transition-colors"
+                    className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-[#EBEBFF] text-[#5B5BD6] text-sm transition-colors"
                     title="Editar"
                   >
                     ✏
@@ -260,12 +260,12 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
 
       {/* Daily total */}
       {!loading && (
-        <div className="px-6 py-4 border-t border-white/60" style={{ background: 'rgba(215,229,187,0.3)' }}>
+        <div className="px-6 py-4 border-t border-white/60" style={{ background: 'rgba(212,236,196,0.3)' }}>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-[#3f4b2c] uppercase tracking-wider">Total do dia</span>
-            <span className="text-sm font-extrabold text-[#181c23]">
+            <span className="text-xs font-bold text-[#3D6B35] uppercase tracking-wider">Total do dia</span>
+            <span className="text-sm font-extrabold text-[#1A1A2E]">
               {formatHoras(totalHoras)}
-              <span className="text-xs text-[#777680] font-medium ml-1">
+              <span className="text-xs text-[#6B6880] font-medium ml-1">
                 / {formatHoras(Math.round(dailyTarget * 10) / 10)} · {pct}%
               </span>
             </span>
@@ -273,7 +273,7 @@ export function SessionList({ projectos, tags, targetHorasMes, newSession, onToa
           <div className="h-1.5 bg-white/60 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-500"
-              style={{ width: `${pct}%`, background: 'linear-gradient(90deg, #585990, #8b8cc7)' }}
+              style={{ width: `${pct}%`, backgroundColor: '#5B5BD6' }}
             />
           </div>
         </div>

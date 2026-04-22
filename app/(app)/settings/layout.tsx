@@ -18,8 +18,8 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="mb-7">
-        <h1 className="text-2xl font-extrabold text-[#181c23] tracking-tight">Definições</h1>
-        <p className="text-sm text-[#777680] font-medium mt-0.5">Configura o teu espaço de trabalho</p>
+        <h1 className="text-2xl font-extrabold text-[#1A1A2E] tracking-tight">Definições</h1>
+        <p className="text-sm text-[#6B6880] font-medium mt-0.5">Configura o teu espaço de trabalho</p>
       </div>
 
       <div className="flex gap-6">
@@ -32,8 +32,8 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                 href={s.href}
                 className={`block px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                   pathname === s.href || pathname.startsWith(s.href + '/')
-                    ? 'bg-[#585990] text-white shadow-sm'
-                    : 'text-[#46464f] hover:text-[#585990] hover:bg-white/60'
+                    ? 'bg-[#5B5BD6] text-white shadow-sm'
+                    : 'text-[#44444F] hover:text-[#5B5BD6] hover:bg-white/60'
                 }`}
               >
                 {s.label}
@@ -50,8 +50,8 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
               href={s.href}
               className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all border ${
                 pathname === s.href
-                  ? 'bg-[#585990] text-white border-[#585990]'
-                  : 'text-[#46464f] border-[#c8c5d0] hover:border-[#585990]'
+                  ? 'bg-[#5B5BD6] text-white border-[#5B5BD6]'
+                  : 'text-[#44444F] border-[#C4C0D0] hover:border-[#5B5BD6]'
               }`}
             >
               {s.label}

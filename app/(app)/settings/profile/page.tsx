@@ -71,7 +71,7 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <h2 className="text-lg font-extrabold text-[#181c23] mb-5">O meu perfil</h2>
+      <h2 className="text-lg font-extrabold text-[#1A1A2E] mb-5">O meu perfil</h2>
 
       <div className="glass rounded-[2rem] p-6 space-y-5 max-w-md">
         {/* Avatar */}
@@ -79,7 +79,7 @@ export default function ProfilePage() {
           {avatarUrl ? (
             <img src={avatarUrl} alt="Avatar" className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-md" />
           ) : (
-            <div className="w-16 h-16 rounded-2xl bg-[#e1e0ff] text-[#585990] flex items-center justify-center text-xl font-extrabold border-2 border-white shadow-md">
+            <div className="w-16 h-16 rounded-2xl bg-[#EBEBFF] text-[#5B5BD6] flex items-center justify-center text-xl font-extrabold border-2 border-white shadow-md">
               {initials}
             </div>
           )}
@@ -87,11 +87,11 @@ export default function ProfilePage() {
             <button
               onClick={() => fileRef.current?.click()}
               disabled={uploading}
-              className="px-3 py-1.5 text-sm font-semibold bg-white/70 border border-[#c8c5d0] rounded-xl hover:bg-white transition-all disabled:opacity-50 text-[#46464f]"
+              className="px-3 py-1.5 text-sm font-semibold bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl hover:bg-white transition-all disabled:opacity-50 text-[#44444F]"
             >
               {uploading ? 'A carregar…' : 'Alterar foto'}
             </button>
-            <p className="text-xs text-[#777680] mt-1 font-medium">JPG, PNG ou GIF. Max 5 MB.</p>
+            <p className="text-xs text-[#6B6880] mt-1 font-medium">JPG, PNG ou GIF. Max 5 MB.</p>
           </div>
           <input
             ref={fileRef}
@@ -104,19 +104,19 @@ export default function ProfilePage() {
 
         {/* Nome */}
         <div>
-          <label className="block text-xs font-bold text-[#46464f] uppercase tracking-widest mb-2">Nome</label>
+          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">Nome</label>
           <input
             type="text"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
-            className="w-full px-4 py-2.5 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 transition-all"
+            className="w-full px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 transition-all"
             placeholder="O teu nome"
           />
         </div>
 
         {/* Target horas */}
         <div>
-          <label className="block text-xs font-bold text-[#46464f] uppercase tracking-widest mb-2">Target de horas / mês</label>
+          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">Target de horas / mês</label>
           <div className="flex items-center gap-3">
             <input
               type="number"
@@ -124,9 +124,9 @@ export default function ProfilePage() {
               onChange={(e) => setTarget(e.target.value)}
               min="1"
               step="1"
-              className="w-28 px-4 py-2.5 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 transition-all"
+              className="w-28 px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 transition-all"
             />
-            <span className="text-sm text-[#777680] font-medium">horas</span>
+            <span className="text-sm text-[#6B6880] font-medium">horas</span>
           </div>
         </div>
 
@@ -134,14 +134,14 @@ export default function ProfilePage() {
           <div className="bg-[#ffdad6] border border-[#ffb3af] rounded-xl px-4 py-2.5 text-xs font-semibold text-[#93000a]">{error}</div>
         )}
         {success && (
-          <div className="bg-[#d7e5bb] border border-[#b5cd92] rounded-xl px-4 py-2.5 text-xs font-semibold text-[#3f4b2c]">Perfil guardado com sucesso.</div>
+          <div className="bg-[#D4ECC4] border border-[#9EC87A] rounded-xl px-4 py-2.5 text-xs font-semibold text-[#3D6B35]">Perfil guardado com sucesso.</div>
         )}
 
         <button
           onClick={handleSave}
           disabled={saving}
           className="px-5 py-2.5 text-white text-sm font-bold rounded-xl disabled:opacity-50 transition-all shadow-md"
-          style={{ background: 'linear-gradient(135deg, #585990 0%, #8b8cc7 100%)' }}
+          style={{ background: '#5B5BD6' }}
         >
           {saving ? 'A guardar…' : 'Guardar'}
         </button>

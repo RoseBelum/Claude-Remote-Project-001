@@ -82,8 +82,8 @@ function DroppableColumn({
       {/* Column header */}
       <div className="flex items-center gap-2 mb-3 px-1">
         <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: estado.cor }} />
-        <span className="text-sm font-bold text-[#181c23] flex-1">{estado.nome}</span>
-        <span className="text-xs font-bold text-[#777680] bg-white/60 rounded-full px-2 py-0.5">
+        <span className="text-sm font-bold text-[#1A1A2E] flex-1">{estado.nome}</span>
+        <span className="text-xs font-bold text-[#6B6880] bg-white/60 rounded-full px-2 py-0.5">
           {visible.length}
         </span>
       </div>
@@ -92,13 +92,13 @@ function DroppableColumn({
       <div
         ref={setNodeRef}
         className={`flex-1 min-h-[200px] rounded-2xl p-2 space-y-2 transition-colors ${
-          isOver ? 'bg-[#e1e0ff]/40' : 'bg-white/30'
+          isOver ? 'bg-[#EBEBFF]/40' : 'bg-white/30'
         }`}
       >
         <SortableContext items={tasks.map((t) => t.id)} strategy={verticalListSortingStrategy}>
           {visible.length === 0 ? (
             <div className="h-full flex items-center justify-center border-2 border-dashed border-white/60 rounded-xl min-h-[160px]">
-              <span className="text-xs text-[#c8c5d0] font-semibold">Sem tarefas</span>
+              <span className="text-xs text-[#C4C0D0] font-semibold">Sem tarefas</span>
             </div>
           ) : (
             visible.map((t) => (
@@ -122,17 +122,17 @@ function DroppableColumn({
               onChange={(e) => setQuickTitle(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Escape') { setQuickOpen(false); setQuickTitle('') } }}
               placeholder="Título da tarefa…"
-              className="w-full px-3 py-2.5 bg-white/80 border border-[#585990]/40 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#585990]/20 shadow-sm"
+              className="w-full px-3 py-2.5 bg-white/80 border border-[#5B5BD6]/40 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#5B5BD6]/20 shadow-sm"
             />
             <div className="flex gap-1.5 mt-1.5">
-              <button type="submit" className="px-3 py-1.5 bg-[#585990] text-white text-xs font-bold rounded-xl hover:bg-[#46476e] transition-colors">Adicionar</button>
-              <button type="button" onClick={() => { setQuickOpen(false); setQuickTitle('') }} className="px-3 py-1.5 text-xs text-[#777680] font-semibold hover:text-[#181c23] transition-colors">Cancelar</button>
+              <button type="submit" className="px-3 py-1.5 bg-[#5B5BD6] text-white text-xs font-bold rounded-xl hover:bg-[#3D3DAF] transition-colors">Adicionar</button>
+              <button type="button" onClick={() => { setQuickOpen(false); setQuickTitle('') }} className="px-3 py-1.5 text-xs text-[#6B6880] font-semibold hover:text-[#1A1A2E] transition-colors">Cancelar</button>
             </div>
           </form>
         ) : (
           <button
             onClick={openQuick}
-            className="w-full py-2 text-xs text-[#777680] font-semibold hover:text-[#585990] hover:bg-white/50 rounded-xl transition-colors flex items-center justify-center gap-1"
+            className="w-full py-2 text-xs text-[#6B6880] font-semibold hover:text-[#5B5BD6] hover:bg-white/50 rounded-xl transition-colors flex items-center justify-center gap-1"
           >
             + Adicionar tarefa
           </button>
@@ -412,8 +412,8 @@ export default function BoardPage() {
   if (projectos.length === 0) {
     return (
       <div className="px-4 py-16 max-w-5xl mx-auto text-center">
-        <p className="text-[#777680] font-semibold mb-3">Nenhum projecto activo encontrado.</p>
-        <a href="/settings/projects" className="text-[#585990] hover:underline text-sm font-bold">
+        <p className="text-[#6B6880] font-semibold mb-3">Nenhum projecto activo encontrado.</p>
+        <a href="/settings/projects" className="text-[#5B5BD6] hover:underline text-sm font-bold">
           Criar um projecto em Definições →
         </a>
       </div>
@@ -428,12 +428,12 @@ export default function BoardPage() {
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center gap-2.5 px-5 py-3.5 flex-wrap glass-subtle border-b border-white/60">
-        <h1 className="text-xl font-extrabold text-[#181c23] tracking-tight mr-1">Task Board</h1>
+        <h1 className="text-xl font-extrabold text-[#1A1A2E] tracking-tight mr-1">Task Board</h1>
 
         <select
           value={filterProjecto}
           onChange={(e) => setFilterProjecto(e.target.value)}
-          className="px-3 py-2 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 max-w-[160px] md:max-w-none transition-all"
+          className="px-3 py-2 bg-white/70 border border-[#C4C0D0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 max-w-[160px] md:max-w-none transition-all"
         >
           <option value="">Todos projectos</option>
           {projectos.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
@@ -442,7 +442,7 @@ export default function BoardPage() {
         <select
           value={filterAssignee}
           onChange={(e) => setFilterAssignee(e.target.value)}
-          className="hidden md:block px-3 py-2 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 transition-all"
+          className="hidden md:block px-3 py-2 bg-white/70 border border-[#C4C0D0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 transition-all"
         >
           <option value="">Todos membros</option>
           {profiles.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
@@ -451,7 +451,7 @@ export default function BoardPage() {
         <button
           onClick={() => setNewTaskDefaults({ estadoId: activeEstado?.id ?? '', projectoId: filterProjecto })}
           className="ml-auto px-4 py-2 text-white text-sm font-bold rounded-xl whitespace-nowrap shadow-md transition-all"
-          style={{ background: 'linear-gradient(135deg, #585990 0%, #8b8cc7 100%)', boxShadow: '0 4px 14px rgba(88,89,144,0.25)' }}
+          style={{ background: '#5B5BD6', boxShadow: '0 4px 14px rgba(88,89,144,0.25)' }}
         >
           + Nova
         </button>
@@ -468,8 +468,8 @@ export default function BoardPage() {
                 onClick={() => setMobileColIdx(i)}
                 className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2.5 text-sm font-semibold border-b-2 transition-colors whitespace-nowrap ${
                   mobileColIdx === i
-                    ? 'border-[#585990] text-[#585990]'
-                    : 'border-transparent text-[#777680]'
+                    ? 'border-[#5B5BD6] text-[#5B5BD6]'
+                    : 'border-transparent text-[#6B6880]'
                 }`}
               >
                 <span
@@ -477,7 +477,7 @@ export default function BoardPage() {
                   style={{ backgroundColor: e.cor }}
                 />
                 {e.nome}
-                <span className="text-xs bg-white/60 text-[#46464f] rounded-full px-1.5 py-0.5 leading-none font-bold">
+                <span className="text-xs bg-white/60 text-[#44444F] rounded-full px-1.5 py-0.5 leading-none font-bold">
                   {count}
                 </span>
               </button>
@@ -577,7 +577,7 @@ export default function BoardPage() {
             key={t.id}
             className={`px-4 py-3 rounded-2xl shadow-xl text-sm font-bold transition-all ${
               t.type === 'success'
-                ? 'bg-[#d7e5bb] text-[#3f4b2c] border border-[#b5cd92]'
+                ? 'bg-[#D4ECC4] text-[#3D6B35] border border-[#9EC87A]'
                 : 'bg-[#ffdad6] text-[#93000a] border border-[#ffb3af]'
             }`}
           >

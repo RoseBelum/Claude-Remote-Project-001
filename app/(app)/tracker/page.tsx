@@ -75,12 +75,12 @@ export default function TrackerPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-7">
         <div>
-          <h1 className="text-2xl font-extrabold text-[#181c23] tracking-tight">Time Tracker</h1>
-          <p className="text-sm text-[#777680] font-medium mt-0.5">Regista e gere o teu tempo</p>
+          <h1 className="text-2xl font-extrabold text-[#1A1A2E] tracking-tight">Time Tracker</h1>
+          <p className="text-sm text-[#6B6880] font-medium mt-0.5">Regista e gere o teu tempo</p>
         </div>
         <button
           onClick={() => setExportOpen(true)}
-          className="px-4 py-2 text-sm font-bold glass rounded-xl text-[#585990] hover:bg-white/80 border border-[#585990]/20 transition-all"
+          className="px-4 py-2 text-sm font-bold glass rounded-xl text-[#5B5BD6] hover:bg-white/80 border border-[#5B5BD6]/20 transition-all"
         >
           Exportar
         </button>
@@ -125,7 +125,7 @@ export default function TrackerPage() {
             key={t.id}
             className={`px-4 py-3 rounded-2xl shadow-xl text-sm font-bold transition-all ${
               t.type === 'success'
-                ? 'bg-[#d7e5bb] text-[#3f4b2c] border border-[#b5cd92]'
+                ? 'bg-[#D4ECC4] text-[#3D6B35] border border-[#9EC87A]'
                 : 'bg-[#ffdad6] text-[#93000a] border border-[#ffb3af]'
             }`}
           >

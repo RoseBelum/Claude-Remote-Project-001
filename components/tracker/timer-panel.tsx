@@ -157,20 +157,16 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
   const showLongWarning = running && elapsed > 4 * 3600
 
   return (
-    <div className="glass rounded-[2rem] p-7 space-y-5 relative overflow-hidden">
-      {/* Decorative blobs */}
-      <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full blur-3xl pointer-events-none" style={{ background: 'rgba(88,89,144,0.06)' }} />
-      <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full blur-3xl pointer-events-none" style={{ background: 'rgba(86,99,66,0.06)' }} />
-
+    <div className="glass rounded-[2rem] p-7 space-y-5">
       {/* Form */}
-      <div className="space-y-4 relative">
+      <div className="space-y-4">
         <div>
-          <label className="block text-xs font-bold text-[#46464f] uppercase tracking-widest mb-2">BU</label>
+          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">BU</label>
           <select
             value={buId}
             onChange={(e) => { setBuId(e.target.value); setProjectoId('') }}
             disabled={running}
-            className="w-full px-4 py-2.5 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 disabled:opacity-50 transition-all"
+            className="w-full px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 disabled:opacity-50 transition-all"
           >
             <option value="">Todas as BUs</option>
             {bus.map((b) => (
@@ -180,12 +176,12 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#46464f] uppercase tracking-widest mb-2">Projecto *</label>
+          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">Projecto *</label>
           <select
             value={projectoId}
             onChange={(e) => setProjectoId(e.target.value)}
             disabled={running}
-            className="w-full px-4 py-2.5 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 disabled:opacity-50 transition-all"
+            className="w-full px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 disabled:opacity-50 transition-all"
           >
             <option value="">Seleccionar projecto</option>
             {filteredProjectos.map((p) => (
@@ -195,12 +191,12 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#46464f] uppercase tracking-widest mb-2">Activity Tag</label>
+          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">Activity Tag</label>
           <select
             value={tagId}
             onChange={(e) => setTagId(e.target.value)}
             disabled={running}
-            className="w-full px-4 py-2.5 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 disabled:opacity-50 transition-all"
+            className="w-full px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 disabled:opacity-50 transition-all"
           >
             <option value="">Sem tag</option>
             {tags.map((t) => (
@@ -210,13 +206,13 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#46464f] uppercase tracking-widest mb-2">Nota</label>
+          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">Nota</label>
           <input
             type="text"
             value={nota}
             onChange={(e) => setNota(e.target.value)}
             placeholder="Breve descrição (opcional)"
-            className="w-full px-4 py-2.5 bg-white/70 border border-[#c8c5d0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#585990] focus:ring-2 focus:ring-[#585990]/20 transition-all"
+            className="w-full px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 transition-all"
           />
         </div>
       </div>
@@ -229,20 +225,20 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
       )}
 
       {/* Timer display */}
-      <div className="rounded-[1.5rem] p-6 text-center relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #e1e0ff 0%, #dae8be 100%)' }}>
+      <div className="rounded-[1.5rem] p-6 text-center relative overflow-hidden" style={{ backgroundColor: '#EDEDFF' }}>
         {running && activeProjecto && (
           <div className="mb-3 flex justify-center">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#d7e5bb] text-[#3f4b2c] text-xs font-bold uppercase tracking-wider rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#566342] animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#D4ECC4] text-[#3D6B35] text-xs font-bold uppercase tracking-wider rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3D6B35] animate-pulse" />
               {activeProjecto.nome}
             </span>
           </div>
         )}
-        <div className={`font-bold text-6xl tracking-tighter leading-none transition-colors ${running ? 'text-[#181c23]' : 'text-[#c8c5d0]'}`}>
+        <div className={`font-bold text-6xl tracking-tighter leading-none transition-colors ${running ? 'text-[#1A1A2E]' : 'text-[#C4C0D0]'}`}>
           {formatTime(elapsed)}
         </div>
         {!running && !projectoId && (
-          <p className="mt-2 text-xs text-[#777680] font-medium">Selecciona um projecto para começar</p>
+          <p className="mt-2 text-xs text-[#6B6880] font-medium">Selecciona um projecto para começar</p>
         )}
       </div>
 
@@ -260,7 +256,7 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
           onClick={start}
           disabled={!projectoId}
           className="w-full py-3.5 text-white text-sm font-bold rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed transition-all uppercase tracking-wider shadow-lg"
-          style={{ background: 'linear-gradient(135deg, #585990 0%, #8b8cc7 100%)', boxShadow: '0 8px 24px rgba(88,89,144,0.25)' }}
+          style={{ backgroundColor: '#5B5BD6' }}
         >
           ▶  Iniciar
         </button>

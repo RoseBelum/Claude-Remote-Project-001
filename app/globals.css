@@ -21,41 +21,40 @@
 .gantt .bar-wrapper.bu-atobe .bar { fill: #ec4899; opacity: 0.8; }
 
 :root {
-  --color-primary: #585990;
-  --color-primary-light: #8b8cc7;
-  --color-primary-container: #e1e0ff;
-  --color-secondary: #566342;
-  --color-secondary-container: #d7e5bb;
-  --color-surface: #f9f9ff;
-  --color-on-surface: #181c23;
-  --color-on-surface-variant: #46464f;
-  --color-outline: #777680;
-  --color-outline-variant: #c8c5d0;
+  --color-primary: #5B5BD6;
+  --color-primary-light: #8B8BEA;
+  --color-primary-container: #EBEBFF;
+  --color-secondary: #3D6B35;
+  --color-secondary-container: #D4ECC4;
+  --color-surface: #F6F6F1;
+  --color-on-surface: #1A1A2E;
+  --color-on-surface-variant: #44444F;
+  --color-outline: #6B6880;
+  --color-outline-variant: #C4C0D0;
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: #ffffff;
+  border: 1px solid #E8E8E4;
+  box-shadow: 0 1px 4px rgba(26, 26, 46, 0.06);
 }
 
 .glass-subtle {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid #E8E8E4;
 }
 
 body {
-  background-color: #f9f9ff;
-  color: #181c23;
+  background-color: #F6F6F1;
+  color: #1A1A2E;
   font-family: 'Manrope', sans-serif;
 }
 
 /* Consistent select & input base */
 select, input[type="text"], input[type="email"], input[type="password"], textarea {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: #c8c5d0;
+  background: #F6F6F1;
+  border-color: #E8E8E4;
   border-radius: 0.75rem;
 }

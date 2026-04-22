@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt" className={manrope.variable}>
-      <body className={`${manrope.className} antialiased`} style={{ backgroundColor: '#f9f9ff' }}>
+      <body className={`${manrope.className} antialiased`} style={{ backgroundColor: '#F6F6F1' }}>
         <SupabaseProvider>{children}</SupabaseProvider>
       </body>
     </html>
