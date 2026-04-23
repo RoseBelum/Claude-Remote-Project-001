@@ -31,10 +31,10 @@ function fmtH(h: number) {
 
 function MetricCard({ label, value, sub, color }: { label: string; value: string; sub?: string; color?: string }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 px-5 py-4">
-      <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">{label}</p>
-      <p className={`text-2xl font-bold mt-1 ${color ?? 'text-gray-900'}`}>{value}</p>
-      {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
+    <div className="bg-white rounded-2xl border border-[color:var(--color-border)] px-5 py-4 shadow-[0_1px_2px_rgba(11,11,28,0.04)]">
+      <p className="text-[0.65rem] font-extrabold uppercase tracking-[0.22em] text-[color:var(--color-ink-muted)]">{label}</p>
+      <p className={`text-3xl font-extrabold mt-1.5 tracking-tight tabular-nums ${color ?? 'text-[color:var(--color-ink)]'}`}>{value}</p>
+      {sub && <p className="text-xs text-[color:var(--color-ink-subtle)] mt-0.5 font-medium">{sub}</p>}
     </div>
   )
 }
@@ -102,7 +102,7 @@ export function DashboardView({ userId, scope, period, range }: Props) {
           projecto_id: s.projecto_id,
           projecto_nome: s.projecto?.nome ?? '—',
           bu_nome: s.projecto?.bu?.nome ?? '—',
-          bu_cor: s.projecto?.bu?.cor ?? '#6b7280',
+          bu_cor: s.projecto?.bu?.cor ?? '#8A8598',
           area_bu: null,
           tag_nome: null,
           user_id: uid,
@@ -186,19 +186,19 @@ export function DashboardView({ userId, scope, period, range }: Props) {
       <div className="space-y-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[0,1,2,3].map((i) => (
-            <div key={i} className="h-20 bg-gray-100 rounded-xl animate-pulse" />
+            <div key={i} className="h-20 bg-[color:var(--color-surface-sunken)] rounded-xl animate-pulse" />
           ))}
         </div>
-        <div className="h-64 bg-gray-100 rounded-xl animate-pulse" />
+        <div className="h-64 bg-[color:var(--color-surface-sunken)] rounded-xl animate-pulse" />
         <div className="grid md:grid-cols-2 gap-4">
-          <div className="h-56 bg-gray-100 rounded-xl animate-pulse" />
-          <div className="h-56 bg-gray-100 rounded-xl animate-pulse" />
+          <div className="h-56 bg-[color:var(--color-surface-sunken)] rounded-xl animate-pulse" />
+          <div className="h-56 bg-[color:var(--color-surface-sunken)] rounded-xl animate-pulse" />
         </div>
       </div>
     )
   }
 
-  const pctColor = pctTarget >= 100 ? 'text-emerald-600' : pctTarget >= 70 ? 'text-amber-500' : 'text-red-500'
+  const pctColor = pctTarget >= 100 ? 'text-[color:var(--color-success)]' : pctTarget >= 70 ? 'text-[#7D4800]' : 'text-[color:var(--color-danger)]'
 
   return (
     <div className="space-y-6">
@@ -212,24 +212,24 @@ export function DashboardView({ userId, scope, period, range }: Props) {
 
       {/* Horas por dia */}
       {dayRows.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-5">
-          <h3 className="text-sm font-semibold text-gray-700 mb-4">Horas por Dia</h3>
+        <div className="bg-white rounded-2xl border border-[color:var(--color-border)] p-4 md:p-5 shadow-[0_1px_2px_rgba(11,11,28,0.04)]">
+          <h3 className="text-sm font-semibold text-[color:var(--color-ink)] mb-4">Horas por Dia</h3>
           <ResponsiveContainer width="100%" height={180}>
             <ComposedChart data={dayRows} margin={{ top: 4, right: isMobile ? 4 : 60, left: -20, bottom: 0 }}>
               <XAxis dataKey="label" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
               <YAxis tick={{ fontSize: 10 }} width={32} />
               <Tooltip formatter={(v) => [`${v}h`, 'Horas']} />
-              <Bar dataKey="horas" fill="#6366f1" radius={[3,3,0,0]} maxBarSize={32} />
+              <Bar dataKey="horas" fill="#2736FF" radius={[3,3,0,0]} maxBarSize={32} />
               <ReferenceLine
                 y={dailyTarget}
-                stroke="#ef4444"
+                stroke="#CC3A0E"
                 strokeDasharray="4 3"
-                label={isMobile ? undefined : { value: `${dailyTarget}h/dia`, fill: '#ef4444', fontSize: 10, position: 'right' }}
+                label={isMobile ? undefined : { value: `${dailyTarget}h/dia`, fill: "#CC3A0E", fontSize: 10, position: 'right' }}
               />
             </ComposedChart>
           </ResponsiveContainer>
           {isMobile && (
-            <p className="text-xs text-red-500 mt-1">— Objectivo diário: {dailyTarget}h</p>
+            <p className="text-xs text-[color:var(--color-danger)] mt-1">— Objectivo diário: {dailyTarget}h</p>
           )}
         </div>
       )}
@@ -237,8 +237,8 @@ export function DashboardView({ userId, scope, period, range }: Props) {
       {/* Horas por projecto + BU donut */}
       <div className="grid md:grid-cols-2 gap-4">
         {projectRows.length > 0 && (
-          <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-5">
-            <h3 className="text-sm font-semibold text-gray-700 mb-4">Horas por Projecto</h3>
+          <div className="bg-white rounded-2xl border border-[color:var(--color-border)] p-4 md:p-5 shadow-[0_1px_2px_rgba(11,11,28,0.04)]">
+            <h3 className="text-sm font-semibold text-[color:var(--color-ink)] mb-4">Horas por Projecto</h3>
             <ResponsiveContainer width="100%" height={Math.max(180, projectRows.length * 30)}>
               <BarChart
                 layout="vertical"
@@ -265,8 +265,8 @@ export function DashboardView({ userId, scope, period, range }: Props) {
         )}
 
         {buRows.length > 0 && (
-          <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-5">
-            <h3 className="text-sm font-semibold text-gray-700 mb-4">Distribuição por BU</h3>
+          <div className="bg-white rounded-2xl border border-[color:var(--color-border)] p-4 md:p-5 shadow-[0_1px_2px_rgba(11,11,28,0.04)]">
+            <h3 className="text-sm font-semibold text-[color:var(--color-ink)] mb-4">Distribuição por BU</h3>
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
                 <Pie
@@ -295,8 +295,8 @@ export function DashboardView({ userId, scope, period, range }: Props) {
 
       {/* Team comparison */}
       {scope === 'team' && memberRows.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-5">
-          <h3 className="text-sm font-semibold text-gray-700 mb-4">Horas por Pessoa</h3>
+        <div className="bg-white rounded-2xl border border-[color:var(--color-border)] p-4 md:p-5 shadow-[0_1px_2px_rgba(11,11,28,0.04)]">
+          <h3 className="text-sm font-semibold text-[color:var(--color-ink)] mb-4">Horas por Pessoa</h3>
           <ResponsiveContainer width="100%" height={Math.max(160, memberRows.length * 36)}>
             <BarChart
               layout="vertical"
@@ -312,7 +312,7 @@ export function DashboardView({ userId, scope, period, range }: Props) {
                 tickFormatter={(v: string) => isMobile && v.length > 10 ? v.slice(0, 9) + '…' : v}
               />
               <Tooltip formatter={(v) => [fmtH(Number(v)), 'Horas']} />
-              <Bar dataKey="horas" fill="#6366f1" radius={[0,3,3,0]} maxBarSize={20} />
+              <Bar dataKey="horas" fill="#2736FF" radius={[0,3,3,0]} maxBarSize={20} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -320,7 +320,7 @@ export function DashboardView({ userId, scope, period, range }: Props) {
 
       {/* Empty state */}
       {sessions.length === 0 && (
-        <div className="h-48 flex flex-col items-center justify-center text-center text-gray-400 border-2 border-dashed border-gray-200 rounded-xl">
+        <div className="h-48 flex flex-col items-center justify-center text-center text-[color:var(--color-ink-subtle)] border-2 border-dashed border-[color:var(--color-border)] rounded-xl">
           <p className="text-sm font-medium">Sem sessões no período seleccionado.</p>
           <p className="text-xs mt-1">Regista horas no Tracker para as ver aqui.</p>
         </div>

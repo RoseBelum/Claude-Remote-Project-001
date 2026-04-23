@@ -82,8 +82,8 @@ function DroppableColumn({
       {/* Column header */}
       <div className="flex items-center gap-2 mb-3 px-1">
         <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: estado.cor }} />
-        <span className="text-sm font-bold text-[#1A1A2E] flex-1">{estado.nome}</span>
-        <span className="text-xs font-bold text-[#6B6880] bg-white/60 rounded-full px-2 py-0.5">
+        <span className="text-sm font-bold text-[#0B0B1C] flex-1">{estado.nome}</span>
+        <span className="text-xs font-bold text-[#51516B] bg-[color:var(--color-surface-sunken)] rounded-full px-2 py-0.5">
           {visible.length}
         </span>
       </div>
@@ -92,13 +92,13 @@ function DroppableColumn({
       <div
         ref={setNodeRef}
         className={`flex-1 min-h-[200px] rounded-2xl p-2 space-y-2 transition-colors ${
-          isOver ? 'bg-[#EBEBFF]/40' : 'bg-white/30'
+          isOver ? 'bg-[#E6E9FF]/40' : 'bg-[color:var(--color-surface-sunken)]'
         }`}
       >
         <SortableContext items={tasks.map((t) => t.id)} strategy={verticalListSortingStrategy}>
           {visible.length === 0 ? (
-            <div className="h-full flex items-center justify-center border-2 border-dashed border-white/60 rounded-xl min-h-[160px]">
-              <span className="text-xs text-[#C4C0D0] font-semibold">Sem tarefas</span>
+            <div className="h-full flex items-center justify-center border-2 border-dashed border-[color:var(--color-border)] rounded-xl min-h-[160px]">
+              <span className="text-xs text-[#8A8598] font-semibold">Sem tarefas</span>
             </div>
           ) : (
             visible.map((t) => (
@@ -122,17 +122,17 @@ function DroppableColumn({
               onChange={(e) => setQuickTitle(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Escape') { setQuickOpen(false); setQuickTitle('') } }}
               placeholder="Título da tarefa…"
-              className="w-full px-3 py-2.5 bg-white/80 border border-[#5B5BD6]/40 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#5B5BD6]/20 shadow-sm"
+              className="w-full px-3 py-2.5 bg-white border border-[#2736FF]/40 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2736FF]/20 shadow-sm"
             />
             <div className="flex gap-1.5 mt-1.5">
-              <button type="submit" className="px-3 py-1.5 bg-[#5B5BD6] text-white text-xs font-bold rounded-xl hover:bg-[#3D3DAF] transition-colors">Adicionar</button>
-              <button type="button" onClick={() => { setQuickOpen(false); setQuickTitle('') }} className="px-3 py-1.5 text-xs text-[#6B6880] font-semibold hover:text-[#1A1A2E] transition-colors">Cancelar</button>
+              <button type="submit" className="px-3 py-1.5 bg-[#2736FF] text-white text-xs font-bold rounded-xl hover:bg-[#1A24CF] transition-colors">Adicionar</button>
+              <button type="button" onClick={() => { setQuickOpen(false); setQuickTitle('') }} className="px-3 py-1.5 text-xs text-[#51516B] font-semibold hover:text-[#0B0B1C] transition-colors">Cancelar</button>
             </div>
           </form>
         ) : (
           <button
             onClick={openQuick}
-            className="w-full py-2 text-xs text-[#6B6880] font-semibold hover:text-[#5B5BD6] hover:bg-white/50 rounded-xl transition-colors flex items-center justify-center gap-1"
+            className="w-full py-2 text-xs text-[#51516B] font-semibold hover:text-[#2736FF] hover:bg-[color:var(--color-surface-sunken)] rounded-xl transition-colors flex items-center justify-center gap-1"
           >
             + Adicionar tarefa
           </button>
@@ -399,10 +399,10 @@ export default function BoardPage() {
   if (!ready) {
     return (
       <div className="px-4 py-8 max-w-full">
-        <div className="h-9 w-64 bg-white/80 rounded-2xl animate-pulse mb-6" />
+        <div className="h-9 w-64 bg-white rounded-2xl animate-pulse mb-6" />
         <div className="flex gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="w-72 h-96 bg-white/60 rounded-[2rem] animate-pulse flex-shrink-0" />
+            <div key={i} className="w-72 h-96 bg-[color:var(--color-surface-sunken)] rounded-[2rem] animate-pulse flex-shrink-0" />
           ))}
         </div>
       </div>
@@ -412,8 +412,8 @@ export default function BoardPage() {
   if (projectos.length === 0) {
     return (
       <div className="px-4 py-16 max-w-5xl mx-auto text-center">
-        <p className="text-[#6B6880] font-semibold mb-3">Nenhum projecto activo encontrado.</p>
-        <a href="/settings/projects" className="text-[#5B5BD6] hover:underline text-sm font-bold">
+        <p className="text-[#51516B] font-semibold mb-3">Nenhum projecto activo encontrado.</p>
+        <a href="/settings/projects" className="text-[#2736FF] hover:underline text-sm font-bold">
           Criar um projecto em Definições →
         </a>
       </div>
@@ -427,31 +427,38 @@ export default function BoardPage() {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center gap-2.5 px-5 py-3.5 flex-wrap glass-subtle border-b border-white/60">
-        <h1 className="text-xl font-extrabold text-[#1A1A2E] tracking-tight mr-1">Task Board</h1>
+      <div className="flex items-center gap-2.5 px-5 py-3.5 flex-wrap glass-subtle">
+        <div className="mr-2">
+          <p className="overline text-[0.625rem] leading-tight">Módulo 02 · Tasks</p>
+          <h1 className="text-xl font-extrabold text-[color:var(--color-ink)] tracking-tight leading-tight">Task Board</h1>
+        </div>
 
+        <label htmlFor="board-filter-projecto" className="sr-only">Filtrar por projecto</label>
         <select
+          id="board-filter-projecto"
           value={filterProjecto}
           onChange={(e) => setFilterProjecto(e.target.value)}
-          className="px-3 py-2 bg-white/70 border border-[#C4C0D0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 max-w-[160px] md:max-w-none transition-all"
+          className="px-3 py-2 bg-white border border-[color:var(--color-border-strong)] rounded-xl text-sm font-medium focus:outline-none focus:border-[color:var(--color-primary)] focus:ring-2 focus:ring-[color:var(--color-primary)]/25 max-w-[160px] md:max-w-none transition-colors"
         >
           <option value="">Todos projectos</option>
           {projectos.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
         </select>
 
+        <label htmlFor="board-filter-assignee" className="sr-only">Filtrar por membro</label>
         <select
+          id="board-filter-assignee"
           value={filterAssignee}
           onChange={(e) => setFilterAssignee(e.target.value)}
-          className="hidden md:block px-3 py-2 bg-white/70 border border-[#C4C0D0] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 transition-all"
+          className="hidden md:block px-3 py-2 bg-white border border-[color:var(--color-border-strong)] rounded-xl text-sm font-medium focus:outline-none focus:border-[color:var(--color-primary)] focus:ring-2 focus:ring-[color:var(--color-primary)]/25 transition-colors"
         >
           <option value="">Todos membros</option>
           {profiles.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
         </select>
 
         <button
+          type="button"
           onClick={() => setNewTaskDefaults({ estadoId: activeEstado?.id ?? '', projectoId: filterProjecto })}
-          className="ml-auto px-4 py-2 text-white text-sm font-bold rounded-xl whitespace-nowrap shadow-md transition-all"
-          style={{ background: '#5B5BD6', boxShadow: '0 4px 14px rgba(88,89,144,0.25)' }}
+          className="ml-auto px-4 py-2 bg-[color:var(--color-primary)] hover:bg-[color:var(--color-primary-hover)] text-white text-sm font-bold rounded-xl whitespace-nowrap transition-colors shadow-[0_10px_24px_-10px_rgba(39,54,255,0.55)]"
         >
           + Nova
         </button>
@@ -459,7 +466,7 @@ export default function BoardPage() {
 
       {/* Mobile column tabs */}
       {isMobile && estados.length > 0 && (
-        <div className="flex overflow-x-auto glass-subtle border-b border-white/60 px-2 gap-0 scrollbar-none">
+        <div className="flex overflow-x-auto glass-subtle border-b border-[color:var(--color-border)] px-2 gap-0 scrollbar-none">
           {estados.map((e, i) => {
             const count = (boardData.get(e.id) ?? []).length
             return (
@@ -468,8 +475,8 @@ export default function BoardPage() {
                 onClick={() => setMobileColIdx(i)}
                 className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2.5 text-sm font-semibold border-b-2 transition-colors whitespace-nowrap ${
                   mobileColIdx === i
-                    ? 'border-[#5B5BD6] text-[#5B5BD6]'
-                    : 'border-transparent text-[#6B6880]'
+                    ? 'border-[#2736FF] text-[#2736FF]'
+                    : 'border-transparent text-[#51516B]'
                 }`}
               >
                 <span
@@ -477,7 +484,7 @@ export default function BoardPage() {
                   style={{ backgroundColor: e.cor }}
                 />
                 {e.nome}
-                <span className="text-xs bg-white/60 text-[#44444F] rounded-full px-1.5 py-0.5 leading-none font-bold">
+                <span className="text-xs bg-[color:var(--color-surface-sunken)] text-[#51516B] rounded-full px-1.5 py-0.5 leading-none font-bold">
                   {count}
                 </span>
               </button>
@@ -577,8 +584,8 @@ export default function BoardPage() {
             key={t.id}
             className={`px-4 py-3 rounded-2xl shadow-xl text-sm font-bold transition-all ${
               t.type === 'success'
-                ? 'bg-[#D4ECC4] text-[#3D6B35] border border-[#9EC87A]'
-                : 'bg-[#ffdad6] text-[#93000a] border border-[#ffb3af]'
+                ? 'bg-[#D9F5DD] text-[#1E6C3A] border border-[#7FCA8F]'
+                : 'bg-[#FFE0DE] text-[#7A0B13] border border-[#F5A7A4]'
             }`}
           >
             {t.msg}

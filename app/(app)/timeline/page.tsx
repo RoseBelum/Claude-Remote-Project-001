@@ -69,42 +69,51 @@ export default function TimelinePage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-4 md:py-6 space-y-4 md:space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-end justify-between gap-3 flex-wrap">
         <div>
-          <h1 className="text-xl md:text-2xl font-extrabold text-[#1A1A2E] tracking-tight">Timeline</h1>
-          <p className="text-sm text-[#6B6880] font-medium mt-0.5 hidden md:block">Visão geral de projectos e sessões</p>
+          <p className="overline mb-1 text-[0.625rem]">Módulo 03 · Plan</p>
+          <h1 className="display text-3xl md:text-4xl text-[color:var(--color-ink)]">Timeline</h1>
+          <p className="text-sm text-[color:var(--color-ink-muted)] font-medium mt-1 hidden md:block">
+            Visão geral de projectos e sessões
+          </p>
         </div>
 
         {/* Gantt | Dashboard toggle */}
-        <div className="flex glass rounded-xl overflow-hidden text-sm border border-white/80 p-1 gap-1">
-          {(['gantt', 'dashboard'] as TabView[]).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTabView(t)}
-              className={`px-3 md:px-4 py-1.5 rounded-lg font-semibold transition-all ${
-                tabView === t
-                  ? 'bg-[#5B5BD6] text-white shadow-sm'
-                  : 'text-[#6B6880] hover:text-[#5B5BD6] hover:bg-white/60'
-              }`}
-            >
-              {t === 'gantt' ? 'Gantt' : 'Dashboard'}
-            </button>
-          ))}
+        <div role="tablist" aria-label="Vista" className="flex glass rounded-xl overflow-hidden text-sm border border-[color:var(--color-border)] p-1 gap-1">
+          {(['gantt', 'dashboard'] as TabView[]).map((t) => {
+            const active = tabView === t
+            return (
+              <button
+                key={t}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                onClick={() => setTabView(t)}
+                className={`px-3 md:px-4 py-1.5 rounded-lg font-semibold transition-colors ${
+                  active
+                    ? 'bg-[color:var(--color-primary)] text-white shadow-[0_6px_16px_-6px_rgba(39,54,255,0.55)]'
+                    : 'text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-primary)] hover:bg-[color:var(--color-surface-sunken)]'
+                }`}
+              >
+                {t === 'gantt' ? 'Gantt' : 'Dashboard'}
+              </button>
+            )
+          })}
         </div>
       </div>
 
       {/* Filters row */}
       <div className="flex flex-wrap items-center gap-2">
         {/* Period */}
-        <div className="flex glass rounded-xl overflow-hidden text-sm border border-white/80 p-1 gap-1">
+        <div className="flex glass rounded-xl overflow-hidden text-sm border border-[color:var(--color-border)] p-1 gap-1">
           {PERIODS.map((p) => (
             <button
               key={p.value}
               onClick={() => setPeriod(p.value)}
               className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
                 period === p.value
-                  ? 'bg-[#5B5BD6] text-white shadow-sm'
-                  : 'text-[#6B6880] hover:text-[#5B5BD6] hover:bg-white/60'
+                  ? 'bg-[#2736FF] text-white shadow-sm'
+                  : 'text-[#51516B] hover:text-[#2736FF] hover:bg-[color:var(--color-surface-sunken)]'
               }`}
             >
               {p.label}
@@ -119,25 +128,25 @@ export default function TimelinePage() {
               type="date"
               value={customFrom}
               onChange={(e) => setCustomFrom(e.target.value)}
-              className="flex-1 sm:flex-none bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl px-3 py-1.5 text-[#1A1A2E] text-xs font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 min-w-0 transition-all"
+              className="flex-1 sm:flex-none bg-[#F1EDE1] border border-[#E4DFD1] rounded-xl px-3 py-1.5 text-[#0B0B1C] text-xs font-medium focus:outline-none focus:border-[#2736FF] focus:ring-2 focus:ring-[#2736FF]/20 min-w-0 transition-all"
             />
-            <span className="text-[#6B6880] flex-shrink-0 font-bold">→</span>
+            <span className="text-[#51516B] flex-shrink-0 font-bold">→</span>
             <input
               type="date"
               value={customTo}
               onChange={(e) => setCustomTo(e.target.value)}
-              className="flex-1 sm:flex-none bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl px-3 py-1.5 text-[#1A1A2E] text-xs font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 min-w-0 transition-all"
+              className="flex-1 sm:flex-none bg-[#F1EDE1] border border-[#E4DFD1] rounded-xl px-3 py-1.5 text-[#0B0B1C] text-xs font-medium focus:outline-none focus:border-[#2736FF] focus:ring-2 focus:ring-[#2736FF]/20 min-w-0 transition-all"
             />
           </div>
         )}
 
         {/* Scope selector */}
         <div className="flex items-center gap-1.5 text-sm ml-auto">
-          <label className="text-[#6B6880] font-bold text-xs whitespace-nowrap">Ver:</label>
+          <label className="text-[#51516B] font-bold text-xs whitespace-nowrap">Ver:</label>
           <select
             value={scope}
             onChange={(e) => setScope(e.target.value as Scope)}
-            className="bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl px-3 py-1.5 text-[#1A1A2E] text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 max-w-[130px] transition-all"
+            className="bg-[#F1EDE1] border border-[#E4DFD1] rounded-xl px-3 py-1.5 text-[#0B0B1C] text-sm font-medium focus:outline-none focus:border-[#2736FF] focus:ring-2 focus:ring-[#2736FF]/20 max-w-[130px] transition-all"
           >
             <option value="me">Eu</option>
             <option value="team">Equipa</option>
@@ -151,7 +160,7 @@ export default function TimelinePage() {
       </div>
 
       {/* Range label */}
-      <p className="text-xs text-[#6B6880] font-medium">
+      <p className="text-xs text-[#51516B] font-medium">
         {range.from} → {range.to}
       </p>
 

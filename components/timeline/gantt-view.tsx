@@ -180,13 +180,13 @@ export function GanttView({ userId, scope, from, to }: Props) {
       <div className="flex flex-wrap items-center gap-2 md:gap-3">
         {/* View mode — desktop only */}
         {!isMobile && (
-          <div className="flex rounded-lg border border-gray-200 overflow-hidden">
+          <div className="flex rounded-lg border border-[color:var(--color-border)] overflow-hidden">
             {VIEW_MODES.map((m) => (
               <button
                 key={m.value}
                 onClick={() => setViewMode(m.value)}
                 className={`px-3 py-1.5 text-sm transition-colors ${
-                  viewMode === m.value ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-50'
+                  viewMode === m.value ? 'bg-[color:var(--color-primary)] text-white' : 'text-[color:var(--color-ink-muted)] hover:bg-[color:var(--color-surface-sunken)]'
                 }`}
               >
                 {m.label}
@@ -196,12 +196,12 @@ export function GanttView({ userId, scope, from, to }: Props) {
         )}
 
         {/* Hide no dates */}
-        <label className="flex items-center gap-1.5 text-sm text-gray-600 cursor-pointer">
+        <label className="flex items-center gap-1.5 text-sm text-[color:var(--color-ink-muted)] cursor-pointer">
           <input
             type="checkbox"
             checked={hideNoDates}
             onChange={(e) => setHideNoDates(e.target.checked)}
-            className="rounded text-indigo-600 w-4 h-4"
+            className="rounded text-[color:var(--color-primary)] w-4 h-4"
           />
           Sem datas
         </label>
@@ -219,7 +219,7 @@ export function GanttView({ userId, scope, from, to }: Props) {
                 className="rounded w-4 h-4"
               />
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: b.cor }} />
-              <span className="text-gray-600">{b.nome}</span>
+              <span className="text-[color:var(--color-ink-muted)]">{b.nome}</span>
             </label>
           ))}
         </div>
@@ -227,15 +227,15 @@ export function GanttView({ userId, scope, from, to }: Props) {
 
       {/* Content */}
       {loading ? (
-        <div className="h-64 bg-gray-100 rounded-xl animate-pulse" />
+        <div className="h-64 bg-[color:var(--color-surface-sunken)] rounded-xl animate-pulse" />
       ) : tasksWithDates.length === 0 ? (
-        <div className="h-48 flex flex-col items-center justify-center text-center text-gray-400 border-2 border-dashed border-gray-200 rounded-xl">
+        <div className="h-48 flex flex-col items-center justify-center text-center text-[color:var(--color-ink-subtle)] border-2 border-dashed border-[color:var(--color-border)] rounded-xl">
           <p className="text-sm font-medium">Nenhuma tarefa com datas definidas.</p>
           <p className="text-xs mt-1">Adiciona datas às tarefas no Task Board para as ver aqui.</p>
         </div>
       ) : isMobile ? (
         /* ── Mobile: sorted task list ───────────────────────────── */
-        <div className="rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
+        <div className="rounded-xl border border-[color:var(--color-border)] bg-white divide-y divide-[color:var(--color-border)]">
           {tasksWithDates
             .slice()
             .sort((a, b) => (a.data_inicio ?? '').localeCompare(b.data_inicio ?? ''))
@@ -248,7 +248,7 @@ export function GanttView({ userId, scope, from, to }: Props) {
                 <button
                   key={t.id}
                   onClick={() => setModalTask(t)}
-                  className="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-gray-50 active:bg-gray-100 transition-colors"
+                  className="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-[color:var(--color-surface-sunken)] active:bg-[color:var(--color-surface-sunken)] transition-colors"
                 >
                   {/* BU colour stripe */}
                   <span
@@ -257,21 +257,21 @@ export function GanttView({ userId, scope, from, to }: Props) {
                   />
                   {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">{t.titulo}</p>
-                    <p className="text-xs text-gray-400 mt-0.5 truncate">
+                    <p className="text-sm font-medium text-[color:var(--color-ink)] truncate">{t.titulo}</p>
+                    <p className="text-xs text-[color:var(--color-ink-subtle)] mt-0.5 truncate">
                       {t.projecto?.nome ?? ''}
                       {assigneeName ? ` · ${assigneeName}` : ''}
                     </p>
                   </div>
                   {/* Dates */}
                   <div className="flex-shrink-0 text-right">
-                    <p className="text-xs font-medium text-gray-700 tabular-nums">{fmtDate(t.data_inicio)}</p>
+                    <p className="text-xs font-medium text-[color:var(--color-ink)] tabular-nums">{fmtDate(t.data_inicio)}</p>
                     {t.data_fim && t.data_fim !== t.data_inicio && (
-                      <p className="text-xs text-gray-400 tabular-nums">→ {fmtDate(t.data_fim)}</p>
+                      <p className="text-xs text-[color:var(--color-ink-subtle)] tabular-nums">→ {fmtDate(t.data_fim)}</p>
                     )}
                   </div>
                   {/* Chevron */}
-                  <span className="flex-shrink-0 text-gray-300 text-sm">›</span>
+                  <span className="flex-shrink-0 text-[color:var(--color-ink-subtle)] text-sm">›</span>
                 </button>
               )
             })}
@@ -280,7 +280,7 @@ export function GanttView({ userId, scope, from, to }: Props) {
         /* ── Desktop: Frappe Gantt ──────────────────────────────── */
         <div
           ref={containerRef}
-          className="overflow-x-auto rounded-xl border border-gray-200 bg-white"
+          className="overflow-x-auto rounded-xl border border-[color:var(--color-border)] bg-white"
           style={{ minHeight: 200 }}
         />
       )}

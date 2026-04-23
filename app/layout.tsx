@@ -21,7 +21,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt" className={manrope.variable}>
-      <body className={`${manrope.className} antialiased`} style={{ backgroundColor: '#F6F6F1' }}>
+      <body className={`${manrope.className} antialiased`}>
+        <a href="#main" className="skip-link">Saltar para o conteúdo</a>
         <SupabaseProvider>{children}</SupabaseProvider>
       </body>
     </html>
