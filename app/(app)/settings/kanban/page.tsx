@@ -42,7 +42,7 @@ function SortableRow({
     <div
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
-      className={`flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg ${
+      className={`flex items-center justify-between p-3 bg-white border border-[color:var(--color-border)] rounded-lg ${
         isDragging ? 'opacity-50 shadow-lg' : ''
       }`}
     >
@@ -50,20 +50,20 @@ function SortableRow({
         <button
           {...attributes}
           {...listeners}
-          className="text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing touch-none"
+          className="text-[color:var(--color-ink-subtle)] hover:text-[color:var(--color-ink-muted)] cursor-grab active:cursor-grabbing touch-none"
           aria-label="Reordenar"
         >
           ⠿
         </button>
         <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: estado.cor }} />
-        <span className="text-sm font-medium text-gray-900">{estado.nome}</span>
+        <span className="text-sm font-medium text-[color:var(--color-ink)]">{estado.nome}</span>
         {estado.tarefas_count > 0 && (
-          <span className="text-xs text-gray-400">{estado.tarefas_count} tarefa(s)</span>
+          <span className="text-xs text-[color:var(--color-ink-subtle)]">{estado.tarefas_count} tarefa(s)</span>
         )}
       </div>
       <div className="flex items-center gap-2">
-        <button onClick={() => onEdit(estado)} className="text-xs text-indigo-600 hover:underline">Editar</button>
-        <button onClick={() => onDelete(estado)} className="text-xs text-red-500 hover:underline">Apagar</button>
+        <button onClick={() => onEdit(estado)} className="text-xs text-[color:var(--color-primary)] hover:underline">Editar</button>
+        <button onClick={() => onDelete(estado)} className="text-xs text-[color:var(--color-danger)] hover:underline">Apagar</button>
       </div>
     </div>
   )
@@ -154,21 +154,21 @@ export default function KanbanPage() {
     <div>
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900">Estados Kanban</h2>
-          <p className="text-xs text-gray-400 mt-0.5">Arrasta para reordenar</p>
+          <h2 className="text-lg font-semibold text-[color:var(--color-ink)]">Estados Kanban</h2>
+          <p className="text-xs text-[color:var(--color-ink-subtle)] mt-0.5">Arrasta para reordenar</p>
         </div>
         <button
           onClick={openCreate}
-          className="px-3 py-1.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+          className="px-3 py-1.5 bg-[color:var(--color-primary)] text-white text-sm font-medium rounded-lg hover:bg-[color:var(--color-primary-hover)] transition-colors"
         >
           + Novo estado
         </button>
       </div>
 
       {loading ? (
-        <p className="text-sm text-gray-400">A carregar...</p>
+        <p className="text-sm text-[color:var(--color-ink-subtle)]">A carregar...</p>
       ) : estados.length === 0 ? (
-        <p className="text-sm text-gray-400">Nenhum estado encontrado.</p>
+        <p className="text-sm text-[color:var(--color-ink-subtle)]">Nenhum estado encontrado.</p>
       ) : (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={estados.map((e) => e.id)} strategy={verticalListSortingStrategy}>
@@ -184,44 +184,44 @@ export default function KanbanPage() {
       {modalOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-sm p-6">
-            <h3 className="text-base font-semibold text-gray-900 mb-4">
+            <h3 className="text-base font-semibold text-[color:var(--color-ink)] mb-4">
               {editing ? 'Editar estado' : 'Novo estado'}
             </h3>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Nome *</label>
+                <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Nome *</label>
                 <input
                   type="text"
                   value={form.nome}
                   onChange={(e) => setForm({ ...form, nome: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
                   placeholder="Ex: Em progresso"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Cor</label>
+                <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Cor</label>
                 <div className="flex items-center gap-2">
                   <input
                     type="color"
                     value={form.cor}
                     onChange={(e) => setForm({ ...form, cor: e.target.value })}
-                    className="w-10 h-10 border border-gray-300 rounded cursor-pointer p-0.5"
+                    className="w-10 h-10 border border-[color:var(--color-border-strong)] rounded cursor-pointer p-0.5"
                   />
-                  <span className="text-sm text-gray-500 font-mono">{form.cor}</span>
+                  <span className="text-sm text-[color:var(--color-ink-muted)] font-mono">{form.cor}</span>
                 </div>
               </div>
             </div>
 
             {error && (
-              <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2 mt-3">{error}</p>
+              <p className="text-xs text-[color:var(--color-danger)] bg-[color:var(--color-danger-soft)] border border-[#F5A7A4] rounded px-3 py-2 mt-3">{error}</p>
             )}
 
             <div className="flex justify-end gap-2 mt-5">
-              <button onClick={() => setModalOpen(false)} className="px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+              <button onClick={() => setModalOpen(false)} className="px-4 py-2 text-sm text-[color:var(--color-ink)] border border-[color:var(--color-border-strong)] rounded-lg hover:bg-[color:var(--color-surface-sunken)] transition-colors">
                 Cancelar
               </button>
-              <button onClick={handleSave} disabled={saving} className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors">
+              <button onClick={handleSave} disabled={saving} className="px-4 py-2 text-sm bg-[color:var(--color-primary)] text-white rounded-lg hover:bg-[color:var(--color-primary-hover)] disabled:opacity-50 transition-colors">
                 {saving ? 'A guardar...' : 'Guardar'}
               </button>
             </div>

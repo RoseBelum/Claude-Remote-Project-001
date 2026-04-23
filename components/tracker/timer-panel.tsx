@@ -161,12 +161,13 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
       {/* Form */}
       <div className="space-y-4">
         <div>
-          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">BU</label>
+          <label htmlFor="tracker-bu" className="block text-xs font-extrabold text-[color:var(--color-ink-muted)] uppercase tracking-[0.2em] mb-2">BU</label>
           <select
+            id="tracker-bu"
             value={buId}
             onChange={(e) => { setBuId(e.target.value); setProjectoId('') }}
             disabled={running}
-            className="w-full px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 disabled:opacity-50 transition-all"
+            className="w-full px-4 py-2.5 bg-[color:var(--color-surface-sunken)] border border-[color:var(--color-border)] rounded-xl text-sm font-medium focus:outline-none focus:border-[color:var(--color-primary)] focus:ring-2 focus:ring-[color:var(--color-primary)]/25 disabled:opacity-60 transition-colors"
           >
             <option value="">Todas as BUs</option>
             {bus.map((b) => (
@@ -176,12 +177,18 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">Projecto *</label>
+          <label htmlFor="tracker-projecto" className="block text-xs font-extrabold text-[color:var(--color-ink-muted)] uppercase tracking-[0.2em] mb-2">
+            Projecto <span aria-hidden className="text-[color:var(--color-accent)]">*</span>
+            <span className="sr-only"> (obrigatório)</span>
+          </label>
           <select
+            id="tracker-projecto"
             value={projectoId}
             onChange={(e) => setProjectoId(e.target.value)}
             disabled={running}
-            className="w-full px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 disabled:opacity-50 transition-all"
+            required
+            aria-required="true"
+            className="w-full px-4 py-2.5 bg-[color:var(--color-surface-sunken)] border border-[color:var(--color-border)] rounded-xl text-sm font-medium focus:outline-none focus:border-[color:var(--color-primary)] focus:ring-2 focus:ring-[color:var(--color-primary)]/25 disabled:opacity-60 transition-colors"
           >
             <option value="">Seleccionar projecto</option>
             {filteredProjectos.map((p) => (
@@ -191,12 +198,13 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">Activity Tag</label>
+          <label htmlFor="tracker-tag" className="block text-xs font-extrabold text-[color:var(--color-ink-muted)] uppercase tracking-[0.2em] mb-2">Activity Tag</label>
           <select
+            id="tracker-tag"
             value={tagId}
             onChange={(e) => setTagId(e.target.value)}
             disabled={running}
-            className="w-full px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 disabled:opacity-50 transition-all"
+            className="w-full px-4 py-2.5 bg-[color:var(--color-surface-sunken)] border border-[color:var(--color-border)] rounded-xl text-sm font-medium focus:outline-none focus:border-[color:var(--color-primary)] focus:ring-2 focus:ring-[color:var(--color-primary)]/25 disabled:opacity-60 transition-colors"
           >
             <option value="">Sem tag</option>
             {tags.map((t) => (
@@ -206,57 +214,77 @@ export function TimerPanel({ bus, projectos, tags, userId, onSessionCreated, onT
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#44444F] uppercase tracking-widest mb-2">Nota</label>
+          <label htmlFor="tracker-nota" className="block text-xs font-extrabold text-[color:var(--color-ink-muted)] uppercase tracking-[0.2em] mb-2">Nota</label>
           <input
+            id="tracker-nota"
             type="text"
             value={nota}
             onChange={(e) => setNota(e.target.value)}
             placeholder="Breve descrição (opcional)"
-            className="w-full px-4 py-2.5 bg-[#F6F6F1] border border-[#E8E8E4] rounded-xl text-sm font-medium focus:outline-none focus:border-[#5B5BD6] focus:ring-2 focus:ring-[#5B5BD6]/20 transition-all"
+            className="w-full px-4 py-2.5 bg-[color:var(--color-surface-sunken)] border border-[color:var(--color-border)] rounded-xl text-sm font-medium focus:outline-none focus:border-[color:var(--color-primary)] focus:ring-2 focus:ring-[color:var(--color-primary)]/25 transition-colors"
           />
         </div>
       </div>
 
       {/* Long session warning */}
       {showLongWarning && (
-        <div className="bg-[#ffdad6] border border-[#ffb3af] rounded-xl px-4 py-2.5 text-xs font-semibold text-[#93000a]">
-          ⚠️ Sessão activa há mais de 4h. Não te esqueças de parar o cronómetro.
+        <div
+          role="alert"
+          className="bg-[color:var(--color-warning-soft)] border border-[color:var(--color-warning-ring)] rounded-xl px-4 py-2.5 text-xs font-semibold text-[color:var(--color-warning)]"
+        >
+          <span aria-hidden>⚠️ </span>Sessão activa há mais de 4h. Não te esqueças de parar o cronómetro.
         </div>
       )}
 
-      {/* Timer display */}
-      <div className="rounded-[1.5rem] p-6 text-center relative overflow-hidden" style={{ backgroundColor: '#EDEDFF' }}>
+      {/* Timer display — cosmic panel */}
+      <div
+        className="relative overflow-hidden rounded-[1.5rem] p-6 text-center space-bg"
+        role="timer"
+        aria-live="off"
+        aria-atomic="true"
+      >
         {running && activeProjecto && (
-          <div className="mb-3 flex justify-center">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#D4ECC4] text-[#3D6B35] text-xs font-bold uppercase tracking-wider rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3D6B35] animate-pulse" />
+          <div className="relative z-10 mb-3 flex justify-center">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 text-white text-xs font-bold uppercase tracking-[0.18em] rounded-full border border-white/20">
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-pulse"
+                style={{ backgroundColor: '#7FE0A3', boxShadow: '0 0 8px rgba(127,224,163,0.8)' }}
+                aria-hidden
+              />
               {activeProjecto.nome}
             </span>
           </div>
         )}
-        <div className={`font-bold text-6xl tracking-tighter leading-none transition-colors ${running ? 'text-[#1A1A2E]' : 'text-[#C4C0D0]'}`}>
+        <div
+          className={`relative z-10 font-bold text-6xl tracking-tighter leading-none tabular-nums ${running ? 'text-white' : 'text-[color:var(--color-space-ink-subtle)]'}`}
+        >
           {formatTime(elapsed)}
         </div>
         {!running && !projectoId && (
-          <p className="mt-2 text-xs text-[#6B6880] font-medium">Selecciona um projecto para começar</p>
+          <p className="relative z-10 mt-2 text-xs text-[color:var(--color-space-ink-muted)] font-medium">
+            Selecciona um projecto para começar
+          </p>
         )}
       </div>
 
       {/* Start / Stop */}
       {running ? (
         <button
+          type="button"
           onClick={() => void stop()}
           disabled={saving}
-          className="w-full py-3.5 bg-[#ffdad6] text-[#93000a] text-sm font-bold rounded-2xl hover:bg-red-100 disabled:opacity-50 transition-all uppercase tracking-wider shadow-sm"
+          aria-label="Parar sessão"
+          className="w-full py-3.5 bg-[color:var(--color-danger)] text-white text-sm font-bold rounded-2xl hover:bg-[#7A0B13] disabled:opacity-50 transition-colors uppercase tracking-[0.18em] shadow-[0_10px_30px_-8px_rgba(161,0,28,0.55)]"
         >
-          {saving ? 'A guardar…' : '⏹  Parar sessão'}
+          {saving ? 'A guardar…' : '■  Parar sessão'}
         </button>
       ) : (
         <button
+          type="button"
           onClick={start}
           disabled={!projectoId}
-          className="w-full py-3.5 text-white text-sm font-bold rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed transition-all uppercase tracking-wider shadow-lg"
-          style={{ backgroundColor: '#5B5BD6' }}
+          aria-label="Iniciar sessão"
+          className="w-full py-3.5 bg-[color:var(--color-primary)] text-white text-sm font-bold rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[color:var(--color-primary-hover)] transition-colors uppercase tracking-[0.18em] shadow-[0_10px_30px_-8px_rgba(39,54,255,0.55)]"
         >
           ▶  Iniciar
         </button>

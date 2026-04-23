@@ -123,12 +123,12 @@ export function ExportModal({ profile, onClose, onToast }: Props) {
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-sm p-6">
-        <h3 className="text-base font-semibold text-gray-900 mb-4">Exportar timesheet</h3>
+        <h3 className="text-base font-semibold text-[color:var(--color-ink)] mb-4">Exportar timesheet</h3>
 
         <div className="space-y-4">
           {/* Period */}
           <div>
-            <p className="text-xs font-medium text-gray-700 mb-2">Período</p>
+            <p className="text-xs font-medium text-[color:var(--color-ink)] mb-2">Período</p>
             <div className="space-y-1.5">
               {(['week', 'month', 'custom'] as Period[]).map((p) => (
                 <label key={p} className="flex items-center gap-2 cursor-pointer">
@@ -138,9 +138,9 @@ export function ExportModal({ profile, onClose, onToast }: Props) {
                     value={p}
                     checked={period === p}
                     onChange={() => setPeriod(p)}
-                    className="text-indigo-600"
+                    className="text-[color:var(--color-primary)]"
                   />
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-[color:var(--color-ink)]">
                     {p === 'week' ? 'Semana actual' : p === 'month' ? 'Mês actual' : 'Intervalo customizado'}
                   </span>
                 </label>
@@ -151,21 +151,21 @@ export function ExportModal({ profile, onClose, onToast }: Props) {
           {period === 'custom' && (
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">De</label>
+                <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">De</label>
                 <input
                   type="date"
                   value={customFrom}
                   onChange={(e) => setCustomFrom(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Até</label>
+                <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Até</label>
                 <input
                   type="date"
                   value={customTo}
                   onChange={(e) => setCustomTo(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
                 />
               </div>
             </div>
@@ -173,7 +173,7 @@ export function ExportModal({ profile, onClose, onToast }: Props) {
 
           {/* Scope */}
           <div>
-            <p className="text-xs font-medium text-gray-700 mb-2">Âmbito</p>
+            <p className="text-xs font-medium text-[color:var(--color-ink)] mb-2">Âmbito</p>
             <div className="space-y-1.5">
               {(['me', 'team'] as Scope[]).map((s) => (
                 <label key={s} className="flex items-center gap-2 cursor-pointer">
@@ -183,9 +183,9 @@ export function ExportModal({ profile, onClose, onToast }: Props) {
                     value={s}
                     checked={scope === s}
                     onChange={() => setScope(s)}
-                    className="text-indigo-600"
+                    className="text-[color:var(--color-primary)]"
                   />
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-[color:var(--color-ink)]">
                     {s === 'me' ? 'Só eu' : 'Toda a equipa'}
                   </span>
                 </label>
@@ -197,14 +197,14 @@ export function ExportModal({ profile, onClose, onToast }: Props) {
         <div className="flex justify-end gap-2 mt-5">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 text-sm text-[color:var(--color-ink)] border border-[color:var(--color-border-strong)] rounded-lg hover:bg-[color:var(--color-surface-sunken)] transition-colors"
           >
             Cancelar
           </button>
           <button
             onClick={() => void handleExport()}
             disabled={exporting}
-            className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 text-sm bg-[color:var(--color-primary)] text-white rounded-lg hover:bg-[color:var(--color-primary-hover)] disabled:opacity-50 transition-colors"
           >
             {exporting ? 'A exportar…' : 'Exportar .xlsx'}
           </button>

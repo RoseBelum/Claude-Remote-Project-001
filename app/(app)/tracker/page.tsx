@@ -60,10 +60,10 @@ export default function TrackerPage() {
     return (
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-9 w-48 bg-white/80 rounded-2xl" />
+          <div className="h-9 w-48 bg-white rounded-2xl" />
           <div className="flex flex-col md:grid md:grid-cols-5 gap-6">
-            <div className="md:col-span-2 h-[480px] bg-white/60 rounded-[2rem]" />
-            <div className="md:col-span-3 h-[480px] bg-white/60 rounded-[2rem]" />
+            <div className="md:col-span-2 h-[480px] bg-[color:var(--color-surface-sunken)] rounded-[2rem]" />
+            <div className="md:col-span-3 h-[480px] bg-[color:var(--color-surface-sunken)] rounded-[2rem]" />
           </div>
         </div>
       </div>
@@ -73,14 +73,16 @@ export default function TrackerPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-7">
+      <div className="flex items-end justify-between mb-7 gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-[#1A1A2E] tracking-tight">Time Tracker</h1>
-          <p className="text-sm text-[#6B6880] font-medium mt-0.5">Regista e gere o teu tempo</p>
+          <p className="overline mb-1">Módulo 01 · Time</p>
+          <h1 className="display text-3xl md:text-4xl text-[color:var(--color-ink)]">Time Tracker</h1>
+          <p className="text-sm text-[color:var(--color-ink-muted)] font-medium mt-1">Regista e gere o teu tempo</p>
         </div>
         <button
+          type="button"
           onClick={() => setExportOpen(true)}
-          className="px-4 py-2 text-sm font-bold glass rounded-xl text-[#5B5BD6] hover:bg-white/80 border border-[#5B5BD6]/20 transition-all"
+          className="px-4 py-2.5 text-sm font-bold bg-white text-[color:var(--color-primary)] rounded-xl border border-[color:var(--color-primary)]/30 hover:border-[color:var(--color-primary)] hover:bg-[color:var(--color-primary-soft)] transition-colors"
         >
           Exportar
         </button>
@@ -119,14 +121,19 @@ export default function TrackerPage() {
       )}
 
       {/* Toasts */}
-      <div className="fixed bottom-20 md:bottom-6 right-4 space-y-2 z-50">
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="fixed bottom-20 md:bottom-6 right-4 space-y-2 z-50"
+      >
         {toasts.map((t) => (
           <div
             key={t.id}
-            className={`px-4 py-3 rounded-2xl shadow-xl text-sm font-bold transition-all ${
+            className={`px-4 py-3 rounded-2xl shadow-xl text-sm font-bold ${
               t.type === 'success'
-                ? 'bg-[#D4ECC4] text-[#3D6B35] border border-[#9EC87A]'
-                : 'bg-[#ffdad6] text-[#93000a] border border-[#ffb3af]'
+                ? 'bg-[color:var(--color-success-soft)] text-[color:var(--color-success)] border border-[color:var(--color-success-ring)]'
+                : 'bg-[color:var(--color-danger-soft)] text-[color:var(--color-danger)] border border-[color:var(--color-danger-ring)]'
             }`}
           >
             {t.msg}

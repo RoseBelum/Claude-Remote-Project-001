@@ -85,15 +85,15 @@ export function EditModal({ sessao, projectos, tags, onSaved, onClose, onToast }
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
-        <h3 className="text-base font-semibold text-gray-900 mb-4">Editar sessão</h3>
+        <h3 className="text-base font-semibold text-[color:var(--color-ink)] mb-4">Editar sessão</h3>
 
         <div className="space-y-3">
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Projecto *</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Projecto *</label>
             <select
               value={projectoId}
               onChange={(e) => setProjectoId(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
             >
               <option value="">Seleccionar</option>
               {projectos.map((p) => (
@@ -103,11 +103,11 @@ export function EditModal({ sessao, projectos, tags, onSaved, onClose, onToast }
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Activity Tag</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Activity Tag</label>
             <select
               value={tagId}
               onChange={(e) => setTagId(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
             >
               <option value="">Sem tag</option>
               {tags.map((t) => (
@@ -117,56 +117,56 @@ export function EditModal({ sessao, projectos, tags, onSaved, onClose, onToast }
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Data</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Data</label>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">Hora início</label>
+              <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Hora início</label>
               <input
                 type="time"
                 value={horaInicio}
                 onChange={(e) => { setHoraInicio(e.target.value); setHorasManual(false) }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">Hora fim</label>
+              <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Hora fim</label>
               <input
                 type="time"
                 value={horaFim}
                 onChange={(e) => { setHoraFim(e.target.value); setHorasManual(false) }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Horas</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Horas</label>
             <input
               type="number"
               value={horas}
               min="0"
               step="0.5"
               onChange={(e) => { setHoras(e.target.value); setHorasManual(true) }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
               placeholder="ex: 1.5"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Nota</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink)] mb-1">Nota</label>
             <input
               type="text"
               value={nota}
               onChange={(e) => setNota(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
             />
           </div>
         </div>
@@ -174,14 +174,14 @@ export function EditModal({ sessao, projectos, tags, onSaved, onClose, onToast }
         <div className="flex justify-end gap-2 mt-5">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 text-sm text-[color:var(--color-ink)] border border-[color:var(--color-border-strong)] rounded-lg hover:bg-[color:var(--color-surface-sunken)] transition-colors"
           >
             Cancelar
           </button>
           <button
             onClick={() => void handleSave()}
             disabled={saving || !projectoId}
-            className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 text-sm bg-[color:var(--color-primary)] text-white rounded-lg hover:bg-[color:var(--color-primary-hover)] disabled:opacity-50 transition-colors"
           >
             {saving ? 'A guardar…' : 'Guardar'}
           </button>

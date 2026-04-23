@@ -42,27 +42,27 @@ export default function TeamPage() {
   return (
     <div>
       <div className="mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">Equipa</h2>
-        <p className="text-xs text-gray-400 mt-0.5">Gestão de membros feita no Supabase Auth.</p>
+        <h2 className="text-lg font-semibold text-[color:var(--color-ink)]">Equipa</h2>
+        <p className="text-xs text-[color:var(--color-ink-subtle)] mt-0.5">Gestão de membros feita no Supabase Auth.</p>
       </div>
 
       {loading ? (
-        <p className="text-sm text-gray-400">A carregar...</p>
+        <p className="text-sm text-[color:var(--color-ink-subtle)]">A carregar...</p>
       ) : members.length === 0 ? (
-        <p className="text-sm text-gray-400">Nenhum membro encontrado.</p>
+        <p className="text-sm text-[color:var(--color-ink-subtle)]">Nenhum membro encontrado.</p>
       ) : (
         <div className="space-y-2">
           {members.map((m) => (
-            <div key={m.id} className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg">
+            <div key={m.id} className="flex items-center justify-between p-3 bg-white border border-[color:var(--color-border)] rounded-lg">
               <div className="flex items-center gap-3">
                 {m.avatar_url ? (
                   <img src={m.avatar_url} alt={m.nome} className="w-8 h-8 rounded-full object-cover" />
                 ) : (
-                  <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs font-semibold">
+                  <div className="w-8 h-8 rounded-full bg-[color:var(--color-primary-soft)] text-[color:var(--color-primary-soft-ink)] flex items-center justify-center text-xs font-semibold">
                     {initials(m.nome)}
                   </div>
                 )}
-                <span className="text-sm font-medium text-gray-900">{m.nome}</span>
+                <span className="text-sm font-medium text-[color:var(--color-ink)]">{m.nome}</span>
               </div>
 
               <div className="flex items-center gap-2">
@@ -72,26 +72,26 @@ export default function TeamPage() {
                       type="number"
                       value={targetEdit}
                       onChange={(e) => setTargetEdit(e.target.value)}
-                      className="w-20 px-2 py-1 border border-gray-300 rounded text-sm text-right focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-20 px-2 py-1 border border-[color:var(--color-border-strong)] rounded text-sm text-right focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
                       min="1"
                       step="1"
                     />
-                    <span className="text-xs text-gray-500">h/mês</span>
+                    <span className="text-xs text-[color:var(--color-ink-muted)]">h/mês</span>
                     <button
                       onClick={() => saveTarget(m)}
                       disabled={saving}
-                      className="text-xs text-indigo-600 hover:underline disabled:opacity-50"
+                      className="text-xs text-[color:var(--color-primary)] hover:underline disabled:opacity-50"
                     >
                       Guardar
                     </button>
-                    <button onClick={() => setEditingId(null)} className="text-xs text-gray-400 hover:underline">
+                    <button onClick={() => setEditingId(null)} className="text-xs text-[color:var(--color-ink-subtle)] hover:underline">
                       Cancelar
                     </button>
                   </>
                 ) : (
                   <>
-                    <span className="text-sm text-gray-500">{m.target_horas_mes}h/mês</span>
-                    <button onClick={() => startEdit(m)} className="text-xs text-indigo-600 hover:underline">
+                    <span className="text-sm text-[color:var(--color-ink-muted)]">{m.target_horas_mes}h/mês</span>
+                    <button onClick={() => startEdit(m)} className="text-xs text-[color:var(--color-primary)] hover:underline">
                       Editar
                     </button>
                   </>

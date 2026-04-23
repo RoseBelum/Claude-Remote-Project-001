@@ -9,10 +9,10 @@ const PRIORIDADES = ['baixa', 'media', 'alta', 'urgente'] as const
 type Prioridade = (typeof PRIORIDADES)[number]
 
 const PRIORIDADE_STYLE: Record<Prioridade, string> = {
-  baixa: 'bg-gray-100 text-gray-500 ring-gray-200',
-  media: 'bg-blue-100 text-blue-600 ring-blue-200',
-  alta: 'bg-orange-100 text-orange-600 ring-orange-200',
-  urgente: 'bg-red-100 text-red-600 ring-red-200',
+  baixa: 'bg-[color:var(--color-surface-sunken)] text-[color:var(--color-ink-muted)] ring-gray-200',
+  media: 'bg-[#E6E9FF] text-[#1522A6] ring-[#B6BDFF]',
+  alta: 'bg-[#FFE3D3] text-[#A72D07] ring-[#F5B899]',
+  urgente: 'bg-[#FFE0DE] text-[#A1001C] ring-[#F5A7A4]',
 }
 
 interface ProfileOpt {
@@ -138,11 +138,11 @@ export function TaskModal({
       {/* Panel */}
       <div className="fixed inset-y-0 right-0 w-full md:w-[480px] bg-white shadow-2xl z-50 flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-          <h2 className="text-base font-semibold text-gray-900">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[color:var(--color-border)]">
+          <h2 className="text-base font-semibold text-[color:var(--color-ink)]">
             {isNew ? 'Nova tarefa' : 'Editar tarefa'}
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors text-xl leading-none">×</button>
+          <button onClick={onClose} className="text-[color:var(--color-ink-subtle)] hover:text-[color:var(--color-ink-muted)] transition-colors text-xl leading-none">×</button>
         </div>
 
         {/* Body */}
@@ -155,17 +155,17 @@ export function TaskModal({
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
               placeholder="Título da tarefa *"
-              className="w-full text-lg font-semibold text-gray-900 border-0 border-b-2 border-gray-200 focus:border-indigo-500 outline-none pb-1 bg-transparent transition-colors"
+              className="w-full text-lg font-semibold text-[color:var(--color-ink)] border-0 border-b-2 border-[color:var(--color-border)] focus:border-[color:var(--color-primary)] outline-none pb-1 bg-transparent transition-colors"
             />
           </div>
 
           {/* Projecto */}
           <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Projecto *</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink-muted)] uppercase tracking-wide mb-1">Projecto *</label>
             <select
               value={projectoId}
               onChange={(e) => setProjectoId(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
             >
               <option value="">Seleccionar</option>
               {projectos.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
@@ -174,11 +174,11 @@ export function TaskModal({
 
           {/* Assignee */}
           <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Assignee</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink-muted)] uppercase tracking-wide mb-1">Assignee</label>
             <select
               value={assigneeId}
               onChange={(e) => setAssigneeId(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
             >
               <option value="">Sem assignee</option>
               {profiles.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
@@ -187,11 +187,11 @@ export function TaskModal({
 
           {/* Estado */}
           <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Estado *</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink-muted)] uppercase tracking-wide mb-1">Estado *</label>
             <select
               value={estadoId}
               onChange={(e) => setEstadoId(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
             >
               <option value="">Seleccionar</option>
               {estados.map((e) => <option key={e.id} value={e.id}>{e.nome}</option>)}
@@ -200,14 +200,14 @@ export function TaskModal({
 
           {/* Prioridade */}
           <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Prioridade</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink-muted)] uppercase tracking-wide mb-2">Prioridade</label>
             <div className="flex gap-2 flex-wrap">
               {PRIORIDADES.map((p) => (
                 <button
                   key={p}
                   onClick={() => setPrioridade(p)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium ring-1 transition-all ${
-                    prioridade === p ? `${PRIORIDADE_STYLE[p]} ring-2` : 'bg-white text-gray-500 ring-gray-200 hover:ring-gray-300'
+                    prioridade === p ? `${PRIORIDADE_STYLE[p]} ring-2` : 'bg-white text-[color:var(--color-ink-muted)] ring-gray-200 hover:ring-gray-300'
                   }`}
                 >
                   {p}
@@ -219,52 +219,52 @@ export function TaskModal({
           {/* Datas */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Data início</label>
+              <label className="block text-xs font-medium text-[color:var(--color-ink-muted)] uppercase tracking-wide mb-1">Data início</label>
               <input
                 type="date"
                 value={dataInicio}
                 onChange={(e) => setDataInicio(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
               />
-              <p className="text-xs text-gray-400 mt-0.5">Usado no planeamento (Timeline)</p>
+              <p className="text-xs text-[color:var(--color-ink-subtle)] mt-0.5">Usado no planeamento (Timeline)</p>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Data fim</label>
+              <label className="block text-xs font-medium text-[color:var(--color-ink-muted)] uppercase tracking-wide mb-1">Data fim</label>
               <input
                 type="date"
                 value={dataFim}
                 onChange={(e) => setDataFim(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)]"
               />
             </div>
           </div>
 
           {/* Descrição */}
           <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Descrição</label>
+            <label className="block text-xs font-medium text-[color:var(--color-ink-muted)] uppercase tracking-wide mb-1">Descrição</label>
             <textarea
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
               rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+              className="w-full px-3 py-2 border border-[color:var(--color-border-strong)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[color:var(--color-primary)] resize-none"
               placeholder="Detalhes da tarefa…"
             />
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-200 space-y-3">
+        <div className="px-6 py-4 border-t border-[color:var(--color-border)] space-y-3">
           <div className="flex gap-2">
             <button
               onClick={onClose}
-              className="flex-1 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex-1 py-2 text-sm text-[color:var(--color-ink)] border border-[color:var(--color-border-strong)] rounded-lg hover:bg-[color:var(--color-surface-sunken)] transition-colors"
             >
               Cancelar
             </button>
             <button
               onClick={() => void handleSave()}
               disabled={saving}
-              className="flex-1 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors font-medium"
+              className="flex-1 py-2 text-sm bg-[color:var(--color-primary)] text-white rounded-lg hover:bg-[color:var(--color-primary-hover)] disabled:opacity-50 transition-colors font-medium"
             >
               {saving ? 'A guardar…' : 'Guardar'}
             </button>
@@ -272,19 +272,19 @@ export function TaskModal({
 
           {!isNew && (
             confirmDelete ? (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                <p className="text-xs text-red-700 mb-2">Apagar esta tarefa? Esta acção não pode ser desfeita.</p>
+              <div className="bg-[color:var(--color-danger-soft)] border border-[#F5A7A4] rounded-lg p-3">
+                <p className="text-xs text-[color:var(--color-danger)] mb-2">Apagar esta tarefa? Esta acção não pode ser desfeita.</p>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setConfirmDelete(false)}
-                    className="flex-1 py-1.5 text-xs text-gray-600 border border-gray-300 rounded hover:bg-gray-50"
+                    className="flex-1 py-1.5 text-xs text-[color:var(--color-ink-muted)] border border-[color:var(--color-border-strong)] rounded hover:bg-[color:var(--color-surface-sunken)]"
                   >
                     Cancelar
                   </button>
                   <button
                     onClick={() => void handleDelete()}
                     disabled={deleting}
-                    className="flex-1 py-1.5 text-xs bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
+                    className="flex-1 py-1.5 text-xs bg-[color:var(--color-danger)] text-white rounded hover:bg-[#7A0B13] disabled:opacity-50"
                   >
                     {deleting ? 'A apagar…' : 'Apagar'}
                   </button>
@@ -293,7 +293,7 @@ export function TaskModal({
             ) : (
               <button
                 onClick={() => setConfirmDelete(true)}
-                className="w-full py-2 text-xs text-red-500 hover:text-red-700 transition-colors"
+                className="w-full py-2 text-xs text-[color:var(--color-danger)] hover:text-[color:var(--color-danger)] transition-colors"
               >
                 Apagar tarefa
               </button>
