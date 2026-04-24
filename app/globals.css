@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════
-   UX Flow — cosmic poster design tokens
+   UX Flow — design tokens
    Contrast audited against WCAG 2.2 AA (body ≥ 4.5:1, UI ≥ 3:1).
    ═══════════════════════════════════════════════════════════════ */
 
@@ -9,9 +9,9 @@
   --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
 
   /* Surfaces */
-  --color-bg:              #FAF7EF;  /* warm poster paper */
+  --color-bg:              #F7F9FC;  /* cool white-blue */
   --color-surface:         #FFFFFF;
-  --color-surface-sunken:  #F1EDE1;
+  --color-surface-sunken:  #EEF1F6;
 
   /* Ink (text) */
   --color-ink:         #0B0B1C;  /* 17.1:1 on bg — AAA */
@@ -19,17 +19,17 @@
   --color-ink-subtle:  #6E6E89;  /* 5.2:1  on bg — AA  */
 
   /* Borders */
-  --color-border:         #E4DFD1;
-  --color-border-strong:  #9E9988;
+  --color-border:         #DDE2EA;
+  --color-border-strong:  #9BA5B4;
 
-  /* Primary — electric cobalt */
+  /* Primary — cobalt blue */
   --color-primary:           #2736FF;
   --color-primary-hover:     #1A24CF;
   --color-primary-soft:      #E6E9FF;
   --color-primary-soft-ink:  #1522A6;  /* 9.2:1 on soft */
   --color-on-primary:        #FFFFFF;  /* 8.1:1 on primary */
 
-  /* Accent — solar orange (inspired by the red-planet poster) */
+  /* Accent */
   --color-accent:       #CC3A0E;
   --color-accent-hover: #A72D07;
   --color-accent-soft:  #FFE3D3;
@@ -45,14 +45,6 @@
   --color-warning:       #7D4800;
   --color-warning-soft:  #FFECC7;
   --color-warning-ring:  #E8A84E;
-
-  /* Cosmic (navbar + hero) */
-  --color-space-0: #06061A;
-  --color-space-1: #0C0C24;
-  --color-space-2: #191934;
-  --color-space-ink:         #F2F2F7;
-  --color-space-ink-muted:   #B7B7D0;  /* 8.2:1 on space-1 — AAA */
-  --color-space-ink-subtle:  #9595B0;  /* 5.4:1 on space-1 — AA  */
 }
 
 /* ─── Base ─────────────────────────────────────────────────────── */
@@ -120,41 +112,13 @@ body {
 }
 
 .glass-subtle {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--color-border);
 }
 
-/* ─── Cosmic surface — the poster backdrop for navbar & hero ──── */
-
-.space-bg {
-  position: relative;
-  color: var(--color-space-ink);
-  background:
-    radial-gradient(1200px 320px at 92% -20%, rgba(255, 125, 70, 0.28), transparent 60%),
-    radial-gradient(900px 260px at 8%  120%, rgba(50, 80, 255, 0.22), transparent 60%),
-    linear-gradient(180deg, var(--color-space-0), var(--color-space-1));
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.space-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(rgba(255,255,255,0.85) 0.6px, transparent 1px),
-    radial-gradient(rgba(255,255,255,0.55) 0.5px, transparent 1px);
-  background-size: 180px 180px, 120px 120px;
-  background-position: 0 0, 60px 60px;
-  opacity: 0.45;
-  mask-image: linear-gradient(180deg, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
-  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
-}
-
-/* ─── Poster utilities ─────────────────────────────────────────── */
+/* ─── Utilities ────────────────────────────────────────────────── */
 
 .overline {
   font-size: 0.6875rem;
@@ -197,7 +161,6 @@ textarea::placeholder {
 /* High-contrast mode support (Windows forced colors) */
 @media (forced-colors: active) {
   .glass, .glass-subtle { border: 1px solid CanvasText; }
-  .space-bg { background: Canvas; color: CanvasText; }
 }
 
 /* ─── Gantt BU colours (preserved) ─────────────────────────────── */
